@@ -1,39 +1,46 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "$id": "https://getkirby.com/blueprints/page.schema.json",
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "$id": "https://getkirby.com/schema/blueprints.schema.json",
   "title": "JSON schema for Kirby 3 CMS blueprint files",
   "allOf": [
     {
       "type": "object",
       "properties": {
         "title": {
-          "$ref": "#/definitions/stringOrTranslated"
+          "$ref": "#/$defs/stringOrTranslated"
         },
         "description": {
-          "$ref": "#/definitions/stringOrTranslated"
+          "$ref": "#/$defs/stringOrTranslated"
         },
         "num": {
-          "$ref": "#/definitions/nonEmptyString",
+          "$ref": "#/$defs/nonEmptyString",
           "default": "zero"
         },
         "status": {
           "type": "object",
           "properties": {
-            "draft": { "$ref": "#/definitions/stringOrLabelAndText" },
-            "unlisted": { "$ref": "#/definitions/stringOrLabelAndText" },
-            "listed": { "$ref": "#/definitions/stringOrLabelAndText" }
+            "draft": {
+              "$ref": "#/$defs/stringOrLabelAndText"
+            },
+            "unlisted": {
+              "$ref": "#/$defs/stringOrLabelAndText"
+            },
+            "listed": {
+              "$ref": "#/$defs/stringOrLabelAndText"
+            }
           }
         },
         "icon": {
-          "$ref": "#/definitions/nonEmptyString"},
+          "$ref": "#/$defs/nonEmptyString"
+        },
         "image": {
           "type": "object",
           "properties": {
             "back": {
-              "$ref": "#/definitions/nonEmptyString"
+              "$ref": "#/$defs/nonEmptyString"
             },
             "icon": {
-              "$ref": "#/definitions/nonEmptyString"
+              "$ref": "#/$defs/nonEmptyString"
             }
           }
         },
@@ -41,37 +48,37 @@
           "type": "object",
           "properties": {
             "changeSlug": {
-              "$ref": "#/definitions/booleanOrObject"
+              "$ref": "#/$defs/booleanOrObject"
             },
             "changeStatus": {
-              "$ref": "#/definitions/booleanOrObject"
+              "$ref": "#/$defs/booleanOrObject"
             },
             "changeTemplate": {
-              "$ref": "#/definitions/booleanOrStringArrayUnique"
+              "$ref": "#/$defs/booleanOrStringArrayUnique"
             },
             "changeTitle": {
-              "$ref": "#/definitions/booleanOrObject"
+              "$ref": "#/$defs/booleanOrObject"
             },
             "delete": {
-              "$ref": "#/definitions/booleanOrObject"
+              "$ref": "#/$defs/booleanOrObject"
             },
             "duplicate": {
-              "$ref": "#/definitions/booleanOrObject"
+              "$ref": "#/$defs/booleanOrObject"
             },
             "preview": {
-              "$ref": "#/definitions/booleanOrString"
+              "$ref": "#/$defs/booleanOrString"
             },
             "read": {
-              "$ref": "#/definitions/booleanOrObject"
+              "$ref": "#/$defs/booleanOrObject"
             },
             "update": {
-              "$ref": "#/definitions/booleanOrObject"
+              "$ref": "#/$defs/booleanOrObject"
             },
             "changeName": {
-              "$ref": "#/definitions/booleanOrObject"
+              "$ref": "#/$defs/booleanOrObject"
             },
             "replace": {
-              "$ref": "#/definitions/booleanOrObject"
+              "$ref": "#/$defs/booleanOrObject"
             }
           }
         },
@@ -79,62 +86,93 @@
           "type": "object",
           "properties": {
             "status": {
-              "$ref": "#/definitions/stringOrStringArrayUnique"
+              "$ref": "#/$defs/stringOrStringArrayUnique"
             },
             "template": {
-              "$ref": "#/definitions/stringOrStringArrayUnique"
+              "$ref": "#/$defs/stringOrStringArrayUnique"
             },
             "sortBy": {
-              "$ref": "#/definitions/stringOrStringArrayUnique"
+              "$ref": "#/$defs/stringOrStringArrayUnique"
             }
           }
         },
         "accept": {
           "oneOf": [
             {
-              "$ref": "#/definitions/nonEmptyString"
+              "$ref": "#/$defs/nonEmptyString"
             },
             {
               "type": "object",
               "properties": {
                 "extension": {
-                  "$ref": "#/definitions/stringOrStringArrayUnique"
+                  "$ref": "#/$defs/stringOrStringArrayUnique"
                 },
                 "mime ": {
-                  "$ref": "#/definitions/stringOrStringArrayUnique"
+                  "$ref": "#/$defs/stringOrStringArrayUnique"
                 },
                 "maxheight": {
-                  "$ref": "#/definitions/numberInPixel"
+                  "$ref": "#/$defs/numberInPixel"
                 },
                 "maxsize": {
-                  "$ref": "#/definitions/numberInBytes"
+                  "$ref": "#/$defs/numberInBytes"
                 },
                 "maxwidth": {
-                  "$ref": "#/definitions/numberInPixel"
+                  "$ref": "#/$defs/numberInPixel"
                 },
                 "minheight": {
-                  "$ref": "#/definitions/numberInPixel"
+                  "$ref": "#/$defs/numberInPixel"
                 },
                 "minsize": {
-                  "$ref": "#/definitions/numberInBytes"
+                  "$ref": "#/$defs/numberInBytes"
                 },
                 "minwidth": {
-                  "$ref": "#/definitions/numberInPixel"
+                  "$ref": "#/$defs/numberInPixel"
                 },
                 "orientation": {
-                  "$ref": "#/definitions/nonEmptyString"
+                  "$ref": "#/$defs/nonEmptyString"
                 },
                 "type": {
-                  "$ref": "#/definitions/stringOrStringArrayUnique"
+                  "$ref": "#/$defs/stringOrStringArrayUnique"
                 }
               }
             }
           ]
+        },
+        "fields": {
+          "$ref": "#/$defs/wrappers/fields"
+        },
+        "sections": {
+          "$ref": "#/$defs/wrappers/sections"
+        },
+        "columns": {
+          "$ref": "#/$defs/wrappers/columns"
+        },
+        "tabs": {
+          "$ref": "#/$defs/wrappers/tabs"
         }
       }
     }
   ],
-  "definitions": {
+  "$defs": {
+    "arrayOrBooleanOrNumberOrObjectOrString": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "array"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
     "nonEmptyString": {
       "type": "string",
       "minLength": 1
@@ -142,7 +180,7 @@
     "notRequiredNonEmptyString": {
       "oneOf": [
         {
-          "$ref": "#/definitions/nonEmptyString"
+          "$ref": "#/$defs/nonEmptyString"
         },
         {
           "type": "null"
@@ -154,16 +192,16 @@
       "uniqueItems": true,
       "minItems": 1,
       "items": {
-        "$ref": "#/definitions/nonEmptyString"
+        "$ref": "#/$defs/nonEmptyString"
       }
     },
     "stringOrStringArrayUnique": {
       "oneOf": [
         {
-          "$ref": "#/definitions/nonEmptyString"
+          "$ref": "#/$defs/nonEmptyString"
         },
         {
-          "$ref": "#/definitions/stringArrayUnique"
+          "$ref": "#/$defs/stringArrayUnique"
         }
       ]
     },
@@ -193,14 +231,14 @@
           "type": "boolean"
         },
         {
-          "$ref": "#/definitions/stringArrayUnique"
+          "$ref": "#/$defs/stringArrayUnique"
         }
       ]
     },
     "stringOrNumber": {
       "oneOf": [
         {
-          "$ref": "#/definitions/nonEmptyString"
+          "$ref": "#/$defs/nonEmptyString"
         },
         {
           "type": "number"
@@ -210,33 +248,37 @@
     "translated": {
       "type": "object",
       "properties": {
-        "en": { "$ref": "#/definitions/nonEmptyString" },
-        "de": { "$ref": "#/definitions/nonEmptyString" }
+        "en": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "de": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
       }
     },
     "stringOrTranslated": {
       "oneOf": [
         {
-          "$ref": "#/definitions/nonEmptyString"
+          "$ref": "#/$defs/nonEmptyString"
         },
         {
-          "$ref": "#/definitions/translated"
+          "$ref": "#/$defs/translated"
         }
       ]
     },
     "stringOrLabelAndText": {
       "oneOf": [
         {
-          "$ref": "#/definitions/nonEmptyString"
+          "$ref": "#/$defs/nonEmptyString"
         },
         {
           "type": "object",
           "properties": {
             "label": {
-              "$ref": "#/definitions/nonEmptyString"
+              "$ref": "#/$defs/nonEmptyString"
             },
             "text": {
-              "$ref": "#/definitions/nonEmptyString"
+              "$ref": "#/$defs/nonEmptyString"
             }
           }
         }
@@ -244,15 +286,247 @@
     },
     "numberInPixel": {
       "type": "number",
-      "minimum": 0,
-      "exclusiveMinimum": true,
+      "exclusiveMinimum": 0,
       "description": "in px"
     },
     "numberInBytes": {
       "type": "number",
-      "minimum": 0,
-      "exclusiveMinimum": true,
+      "exclusiveMinimum": 0,
       "description": "in bytes"
+    },
+    "fraction": {
+      "$ref": "#/$defs/nonEmptyString"
+    },
+    "field": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "properties": {
+        "sec-label": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "column": {
+      "properties": {
+        "width": {
+          "$ref": "#/$defs/fraction"
+        },
+        "fields": {
+          "$ref": "#/$defs/wrappers/fields"
+        },
+        "sections": {
+          "$ref": "#/$defs/wrappers/sections"
+        }
+      },
+      "required": [
+        "width"
+      ],
+      "patternProperties": {
+        ".*": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/section"
+            }
+          ]
+        }
+      }
+    },
+    "tab": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "fields": {
+          "$ref": "#/$defs/wrappers/fields"
+        },
+        "sections": {
+          "$ref": "#/$defs/wrappers/sections"
+        },
+        "columns": {
+          "$ref": "#/$defs/wrappers/columns"
+        }
+      },
+      "patternProperties": {
+        ".*": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/wrappers/fields"
+            },
+            {
+              "$ref": "#/$defs/wrappers/sections"
+            },
+            {
+              "$ref": "#/$defs/wrappers/columns"
+            }
+          ]
+        }
+      }
+    },
+    "field-properties": {
+      "default": {
+        "$ref": "#/$defs/arrayOrBooleanOrNumberOrObjectOrString",
+        "description": "Default value for the field, which will be used when a page/file/user is created"
+      },
+      "extends": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "help": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Optional help text below the field"
+      },
+      "label": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "multiple": {
+        "type": "boolean",
+        "default": true,
+        "description": "If false, only a single one can be selected"
+      }
+    },
+    "fields": {
+      "files": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "files"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/extends"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/label"
+          },
+          "multiple": {
+            "$ref": "#/$defs/field-properties/multiple"
+          }
+        }
+      },
+      "text": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "text"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/extends"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/default"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/label"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/help"
+          }
+        }
+      }
+    },
+    "sections": {
+      "fields": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "fields"
+            ]
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          }
+        }
+      },
+      "files": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "files"
+            ]
+          }
+        }
+      }
+    },
+    "wrappers": {
+      "fields": {
+        "type": "object",
+        "properties": {
+          "legal": {
+            "type": "boolean"
+          }
+        },
+        "patternProperties": {
+          ".*": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/nonEmptyString",
+                "description": "shorthand of extends property"
+              },
+              {
+                "$ref": "#/$defs/fields/text"
+              },
+              {
+                "$ref": "#/$defs/fields/files"
+              }
+            ]
+          }
+        }
+      },
+      "sections": {
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/sections/fields"
+              },
+              {
+                "$ref": "#/$defs/sections/files"
+              }
+            ]
+          }
+        }
+      },
+      "columns": {
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "$ref": "#/$defs/column"
+          }
+        }
+      },
+      "tabs": {
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "$ref": "#/$defs/tab"
+          }
+        }
+      }
     }
   }
 }
