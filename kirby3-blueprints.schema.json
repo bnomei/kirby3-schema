@@ -7,16 +7,14 @@
       "type": "object",
       "properties": {
         "title": {
-          "oneOf": [
-            { "$ref": "#/definitions/nonEmptyString" },
-            { "$ref": "#/definitions/translated" }
-          ],
-          "description": "title of blueprint"
+          "$ref": "#/definitions/stringOrTranslated"
+        },
+        "description": {
+          "$ref": "#/definitions/stringOrTranslated"
         },
         "num": {
           "$ref": "#/definitions/nonEmptyString",
-          "default": "zero",
-          "description": "sorting behaviour"
+          "default": "zero"
         },
         "status": {
           "type": "object",
@@ -24,13 +22,10 @@
             "draft": { "$ref": "#/definitions/stringOrLabelAndText" },
             "unlisted": { "$ref": "#/definitions/stringOrLabelAndText" },
             "listed": { "$ref": "#/definitions/stringOrLabelAndText" }
-          },
-          "description": "define the allowed page statuses"
+          }
         },
         "icon": {
-          "$ref": "#/definitions/nonEmptyString",
-          "description": "Icon to appear in page lists when no preview image is available"
-        },
+          "$ref": "#/definitions/nonEmptyString"},
         "image": {
           "type": "object",
           "properties": {
@@ -46,33 +41,95 @@
           "type": "object",
           "properties": {
             "changeSlug": {
-              "type": "boolean"
+              "$ref": "#/definitions/booleanOrObject"
             },
             "changeStatus": {
-              "type": "boolean"
+              "$ref": "#/definitions/booleanOrObject"
             },
             "changeTemplate": {
               "$ref": "#/definitions/booleanOrStringArrayUnique"
             },
             "changeTitle": {
-              "type": "boolean"
+              "$ref": "#/definitions/booleanOrObject"
             },
             "delete": {
-              "type": "boolean"
+              "$ref": "#/definitions/booleanOrObject"
             },
             "duplicate": {
-              "type": "boolean"
+              "$ref": "#/definitions/booleanOrObject"
             },
             "preview": {
               "$ref": "#/definitions/booleanOrString"
             },
             "read": {
-              "type": "boolean"
+              "$ref": "#/definitions/booleanOrObject"
             },
             "update": {
-              "type": "boolean"
+              "$ref": "#/definitions/booleanOrObject"
+            },
+            "changeName": {
+              "$ref": "#/definitions/booleanOrObject"
+            },
+            "replace": {
+              "$ref": "#/definitions/booleanOrObject"
             }
           }
+        },
+        "navigation": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "$ref": "#/definitions/stringOrStringArrayUnique"
+            },
+            "template": {
+              "$ref": "#/definitions/stringOrStringArrayUnique"
+            },
+            "sortBy": {
+              "$ref": "#/definitions/stringOrStringArrayUnique"
+            }
+          }
+        },
+        "accept": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonEmptyString"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "extension": {
+                  "$ref": "#/definitions/stringOrStringArrayUnique"
+                },
+                "mime ": {
+                  "$ref": "#/definitions/stringOrStringArrayUnique"
+                },
+                "maxheight": {
+                  "$ref": "#/definitions/numberInPixel"
+                },
+                "maxsize": {
+                  "$ref": "#/definitions/numberInBytes"
+                },
+                "maxwidth": {
+                  "$ref": "#/definitions/numberInPixel"
+                },
+                "minheight": {
+                  "$ref": "#/definitions/numberInPixel"
+                },
+                "minsize": {
+                  "$ref": "#/definitions/numberInBytes"
+                },
+                "minwidth": {
+                  "$ref": "#/definitions/numberInPixel"
+                },
+                "orientation": {
+                  "$ref": "#/definitions/nonEmptyString"
+                },
+                "type": {
+                  "$ref": "#/definitions/stringOrStringArrayUnique"
+                }
+              }
+            }
+          ]
         }
       }
     }
@@ -120,6 +177,16 @@
         }
       ]
     },
+    "booleanOrObject": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
     "booleanOrStringArrayUnique": {
       "oneOf": [
         {
@@ -147,6 +214,16 @@
         "de": { "$ref": "#/definitions/nonEmptyString" }
       }
     },
+    "stringOrTranslated": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        {
+          "$ref": "#/definitions/translated"
+        }
+      ]
+    },
     "stringOrLabelAndText": {
       "oneOf": [
         {
@@ -164,6 +241,18 @@
           }
         }
       ]
+    },
+    "numberInPixel": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMinimum": true,
+      "description": "in px"
+    },
+    "numberInBytes": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMinimum": true,
+      "description": "in bytes"
     }
   }
 }
