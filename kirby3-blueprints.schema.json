@@ -1,0 +1,169 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://getkirby.com/blueprints/page.schema.json",
+  "title": "JSON schema for Kirby 3 CMS blueprint files",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "title": {
+          "oneOf": [
+            { "$ref": "#/definitions/nonEmptyString" },
+            { "$ref": "#/definitions/translated" }
+          ],
+          "description": "title of blueprint"
+        },
+        "num": {
+          "$ref": "#/definitions/nonEmptyString",
+          "default": "zero",
+          "description": "sorting behaviour"
+        },
+        "status": {
+          "type": "object",
+          "properties": {
+            "draft": { "$ref": "#/definitions/stringOrLabelAndText" },
+            "unlisted": { "$ref": "#/definitions/stringOrLabelAndText" },
+            "listed": { "$ref": "#/definitions/stringOrLabelAndText" }
+          },
+          "description": "define the allowed page statuses"
+        },
+        "icon": {
+          "$ref": "#/definitions/nonEmptyString",
+          "description": "Icon to appear in page lists when no preview image is available"
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "back": {
+              "$ref": "#/definitions/nonEmptyString"
+            },
+            "icon": {
+              "$ref": "#/definitions/nonEmptyString"
+            }
+          }
+        },
+        "options": {
+          "type": "object",
+          "properties": {
+            "changeSlug": {
+              "type": "boolean"
+            },
+            "changeStatus": {
+              "type": "boolean"
+            },
+            "changeTemplate": {
+              "$ref": "#/definitions/booleanOrStringArrayUnique"
+            },
+            "changeTitle": {
+              "type": "boolean"
+            },
+            "delete": {
+              "type": "boolean"
+            },
+            "duplicate": {
+              "type": "boolean"
+            },
+            "preview": {
+              "$ref": "#/definitions/booleanOrString"
+            },
+            "read": {
+              "type": "boolean"
+            },
+            "update": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "notRequiredNonEmptyString": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stringArrayUnique": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/nonEmptyString"
+      }
+    },
+    "stringOrStringArrayUnique": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        {
+          "$ref": "#/definitions/stringArrayUnique"
+        }
+      ]
+    },
+    "booleanOrString": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "booleanOrStringArrayUnique": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/definitions/stringArrayUnique"
+        }
+      ]
+    },
+    "stringOrNumber": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "translated": {
+      "type": "object",
+      "properties": {
+        "en": { "$ref": "#/definitions/nonEmptyString" },
+        "de": { "$ref": "#/definitions/nonEmptyString" }
+      }
+    },
+    "stringOrLabelAndText": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/nonEmptyString"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "label": {
+              "$ref": "#/definitions/nonEmptyString"
+            },
+            "text": {
+              "$ref": "#/definitions/nonEmptyString"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
