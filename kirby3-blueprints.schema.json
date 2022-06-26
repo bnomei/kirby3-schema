@@ -1432,7 +1432,7 @@
                 "$ref": "#/$defs/fields/radio"
               },
               {
-                "$ref": "#/$defs/fields/rangle"
+                "$ref": "#/$defs/fields/range"
               },
               {
                 "$ref": "#/$defs/fields/select"
