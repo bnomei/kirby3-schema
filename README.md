@@ -10,7 +10,7 @@ Ideally the schema of this repo would be available from the [Schemastore](https:
 
 #### VSCode
 
-VSCode will only use the Schemastore but no local files as far as I could find out. There was a `json.schema` setting but that does not work anymore. But maybe there is a way... create an issue or PR to this readme if you know how to set this up.
+VSCode will only use the Schemastore but no local files as far as I could find out. There was a `json.schemas` setting but that does not work anymore. But maybe there is a way... create an issue or PR to this readme if you know how to set this up.
 
 #### PHP Storm
 
