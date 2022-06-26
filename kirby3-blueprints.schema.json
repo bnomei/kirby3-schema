@@ -371,28 +371,97 @@
       }
     },
     "field-properties": {
+      "create": {
+        "$ref": "#/$defs/booleanOrStringArrayUnique"
+      },
       "default": {
         "$ref": "#/$defs/arrayOrBooleanOrNumberOrObjectOrString",
         "description": "Default value for the field, which will be used when a page/file/user is created"
       },
+      "empty": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Sets the text for the empty state box"
+      },
       "extends": {
         "$ref": "#/$defs/nonEmptyString"
+      },
+      "flip": {
+        "type": "boolean",
+        "description": "Enables/disables reverse sorting"
       },
       "help": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Optional help text below the field"
       },
+      "image": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Image options to control the source and look of file previews"
+      },
+      "info": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Optional info text setup"
+      },
       "label": {
-        "$ref": "#/$defs/nonEmptyString"
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "label is the new official replacement for headline"
+      },
+      "layout": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Section layout"
       },
       "limit": {
         "type": "number",
-        "exclusiveMinimum": 0
+        "exclusiveMinimum": 0,
+        "description": "Sets the number of items per page"
       },
       "multiple": {
         "type": "boolean",
-        "default": true,
         "description": "If false, only a single one can be selected"
+      },
+      "max": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "description": "Sets the maximum number of allowed entries in the section"
+      },
+      "min": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "description": "Sets the minimum number of required entries in the section"
+      },
+      "page": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "description": "Sets the default page for the pagination"
+      },
+      "parent": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Sets the query to a parent to find items for the list"
+      },
+      "size": {
+        "enum": ["tiny", "small", "medium", "large", "huge"],
+        "description": "The size option controls the size of cards"
+      },
+      "sortBy": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Overwrites manual sorting and sorts by the given field and sorting direction"
+      },
+      "sortable": {
+        "type": "boolean",
+        "description": "Enables/disables manual sorting"
+      },
+      "status": {
+        "enum": ["draft", "unlisted", "listed", "published", "all"]
+      },
+      "template": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Filters all files by template and also sets the template, which will be used for all uploads"
+      },
+      "templates": {
+        "$ref": "#/$defs/stringOrStringArrayUnique"
+      },
+      "text": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Setup for the main text in the list or cards"
       },
       "theme": {
         "enum": ["none", "positive", "info", "negative"]
@@ -417,7 +486,8 @@
             "$ref": "#/$defs/field-properties/label"
           },
           "multiple": {
-            "$ref": "#/$defs/field-properties/multiple"
+            "$ref": "#/$defs/field-properties/multiple",
+            "default": true
           }
         }
       },
@@ -441,6 +511,9 @@
           "label": {
             "$ref": "#/$defs/field-properties/label"
           },
+          "headline": {
+            "$ref": "#/$defs/field-properties/headline"
+          },
           "help": {
             "$ref": "#/$defs/field-properties/help"
           }
@@ -460,14 +533,13 @@
             ]
           },
           "headline": {
-            "$ref": "#/$defs/nonEmptyString",
-            "description": "[deprecated] use label instead"
+            "$ref": "#/$defs/field-properties/headline"
           },
           "label": {
-            "$ref": "#/$defs/nonEmptyString"
+            "$ref": "#/$defs/field-properties/label"
           },
           "text": {
-            "$ref": "#/$defs/nonEmptyString"
+            "$ref": "#/$defs/field-properties/text"
           },
           "theme": {
             "$ref": "#/$defs/field-properties/theme",
@@ -501,6 +573,69 @@
             "enum": [
               "files"
             ]
+          },
+          "empty": {
+            "$ref": "#/$defs/field-properties/empty"
+          },
+          "flip": {
+            "$ref": "#/$defs/field-properties/flip",
+            "default": false
+          },
+          "headline": {
+            "$ref": "#/$defs/field-properties/headline"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/help"
+          },
+          "image": {
+            "$ref": "#/$defs/field-properties/image"
+          },
+          "info": {
+            "$ref": "#/$defs/field-properties/info"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/label"
+          },
+          "layout": {
+            "$ref": "#/$defs/field-properties/layout",
+            "default": "list"
+          },
+          "limit": {
+            "$ref": "#/$defs/field-properties/limit",
+            "default": 20
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/min"
+          },
+          "page": {
+            "$ref": "#/$defs/field-properties/page"
+          },
+          "parent": {
+            "$ref": "#/$defs/field-properties/parent"
+          },
+          "size": {
+            "$ref": "#/$defs/field-properties/size",
+            "default": "auto"
+          },
+          "sortBy": {
+            "$ref": "#/$defs/field-properties/sortBy"
+          },
+          "sortable": {
+            "$ref": "#/$defs/field-properties/sortable",
+            "default": true
+          },
+          "status": {
+            "$ref": "#/$defs/field-properties/status"
+          },
+          "template": {
+            "$ref": "#/$defs/field-properties/template"
+          },
+          "text": {
+            "$ref": "#/$defs/nonEmptyString",
+            "default": "'{{ page.title }}'"
           }
         }
       },
@@ -597,7 +732,7 @@
             "anyOf": [
               {
                 "$ref": "#/$defs/nonEmptyString",
-                "description": "shorthand of extends property"
+                "description": "shorthand version of extends property"
               },
               {
                 "$ref": "#/$defs/fields/text"
