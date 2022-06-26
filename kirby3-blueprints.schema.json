@@ -371,12 +371,30 @@
       }
     },
     "field-properties": {
+      "after": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "autofocus": {
+        "type": "boolean"
+      },
+      "before": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "converter": {
+        "enum": ["lower", "upper", "ucfirst", "slug"]
+      },
+      "counter": {
+        "type": "boolean"
+      },
       "create": {
         "$ref": "#/$defs/booleanOrStringArrayUnique"
       },
       "default": {
         "$ref": "#/$defs/arrayOrBooleanOrNumberOrObjectOrString",
         "description": "Default value for the field, which will be used when a page/file/user is created"
+      },
+      "disabled": {
+        "type": "boolean"
       },
       "empty": {
         "$ref": "#/$defs/nonEmptyString",
@@ -397,6 +415,9 @@
         "$ref": "#/$defs/nonEmptyString",
         "description": "Image options to control the source and look of file previews"
       },
+      "icon": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
       "info": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Optional info text setup"
@@ -414,19 +435,31 @@
         "exclusiveMinimum": 0,
         "description": "Sets the number of items per page"
       },
+      "link": {
+        "type": "boolean"
+      },
+      "max": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "maxlength": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "min": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "minlength": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
       "multiple": {
         "type": "boolean",
         "description": "If false, only a single one can be selected"
       },
-      "max": {
-        "type": "number",
-        "exclusiveMinimum": 0,
-        "description": "Sets the maximum number of allowed entries in the section"
-      },
-      "min": {
-        "type": "number",
-        "exclusiveMinimum": 0,
-        "description": "Sets the minimum number of required entries in the section"
+      "options": {
+        "$ref": "#/$defs/stringOrStringArrayUnique"
       },
       "page": {
         "type": "number",
@@ -436,6 +469,22 @@
       "parent": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Sets the query to a parent to find items for the list"
+      },
+      "pattern": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "A regular expression, which will be used to validate the input"
+      },
+      "placeholder": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "query": {
+        "$ref": "#/$defs/stringOrStringArrayUnique"
+      },
+      "required": {
+        "type": "boolean"
+      },
+      "search": {
+        "type": "boolean"
       },
       "size": {
         "enum": ["tiny", "small", "medium", "large", "huge"],
@@ -448,6 +497,9 @@
       "sortable": {
         "type": "boolean",
         "description": "Enables/disables manual sorting"
+      },
+      "spellcheck": {
+        "type": "boolean"
       },
       "status": {
         "enum": ["draft", "unlisted", "listed", "published", "all"]
@@ -465,6 +517,34 @@
       },
       "theme": {
         "enum": ["none", "positive", "info", "negative"]
+      },
+      "translate": {
+        "type": "boolean"
+      },
+      "uploads": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/booleanOrString"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "parent": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "template": {
+                "$ref": "#/$defs/nonEmptyString"
+              }
+            }
+          }
+        ]
+      },
+      "when": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "width": {
+        "enum": ["1/1", "1/2", "1/3", "1/4", "2/3", "3/4"],
+        "default": "1/1"
       }
     },
     "fields": {
@@ -482,12 +562,70 @@
           "extends": {
             "$ref": "#/$defs/field-properties/extends"
           },
+          "default": {
+            "$ref": "#/$defs/field-properties/default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/disabled"
+          },
+          "empty": {
+            "$ref": "#/$defs/field-properties/empty"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/help"
+          },
+          "image": {
+            "$ref": "#/$defs/field-properties/image"
+          },
+          "info": {
+            "$ref": "#/$defs/field-properties/info"
+          },
           "label": {
             "$ref": "#/$defs/field-properties/label"
           },
+          "link": {
+            "$ref": "#/$defs/field-properties/link"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/min"
+          },
           "multiple": {
             "$ref": "#/$defs/field-properties/multiple",
+            "default": false
+          },
+          "query": {
+            "$ref": "#/$defs/field-properties/query"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/required"
+          },
+          "search": {
+            "$ref": "#/$defs/field-properties/search",
             "default": true
+          },
+          "size": {
+            "$ref": "#/$defs/field-properties/size",
+            "default": "auto"
+          },
+          "text": {
+            "$ref": "#/$defs/field-properties/text"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/translate",
+            "default": true
+          },
+          "uploads": {
+            "$ref": "#/$defs/field-properties/uploads",
+            "default": []
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/width"
           }
         }
       },
@@ -505,17 +643,65 @@
           "extends": {
             "$ref": "#/$defs/field-properties/extends"
           },
+          "after": {
+            "$ref": "#/$defs/field-properties/after"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/before"
+          },
+          "converter": {
+            "$ref": "#/$defs/field-properties/converter"
+          },
+          "counter": {
+            "$ref": "#/$defs/field-properties/counter",
+            "default": true
+          },
           "default": {
             "$ref": "#/$defs/field-properties/default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/icon"
           },
           "label": {
             "$ref": "#/$defs/field-properties/label"
           },
-          "headline": {
-            "$ref": "#/$defs/field-properties/headline"
+          "maxlength": {
+            "$ref": "#/$defs/field-properties/maxlength"
           },
-          "help": {
-            "$ref": "#/$defs/field-properties/help"
+          "minlength": {
+            "$ref": "#/$defs/field-properties/icon"
+          },
+          "pattern": {
+            "$ref": "#/$defs/field-properties/pattern"
+          },
+          "placeholder": {
+            "$ref": "#/$defs/field-properties/placeholder"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/required"
+          },
+          "spellcheck": {
+            "$ref": "#/$defs/field-properties/spellcheck",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/width"
           }
         }
       }
