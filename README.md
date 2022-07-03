@@ -1,10 +1,10 @@
-# kirby3-schema
+# kirby3-validate
 
 ## Setup
 
 ### Schemastore (not yet)
 
-Ideally the schema of this repo would be available from the [Schemastore](https://www.schemastore.org/json/) and it would be almost zero configutation in most IDEs. But that is something the Kirby 3 CMS team should do eventually, not me. Let's focus on getting the schema done first.
+Ideally the validate of this repo would be available from the [Schemastore](https://www.schemastore.org/json/) and it would be almost zero configutation in most IDEs. But that is something the Kirby 3 CMS team should do eventually, not me. Let's focus on getting the validate done first.
 
 ### Manual IDE configuration
 
@@ -14,17 +14,17 @@ VSCode will only use the Schemastore but no local files as far as I could find o
 
 #### PHP Storm
 
-Clone this repo to your local machine. Open the IDE settings and search for `JSON Schema`. Then select `Languages & Frameworks` » `Schemas and DTDs` » `JSON Schema Mappings`. Click the `+` button at the top to add a new JSON schema configuration. Then fill in the corresponding name, file or URL, and version.
+Clone this repo to your local machine. Open the IDE settings and search for `JSON Schema`. Then select `Languages & Frameworks` » `Schemas and DTDs` » `JSON Schema Mappings`. Click the `+` button at the top to add a new JSON validate configuration. Then fill in the corresponding name, file or URL, and version.
 
 For testing I mapped it to my `site/blueprints` folder.
 
 #### Enforce Schema for a file
 
-You can enforce a certain schema in adding a special header comment. Which will most probably be needed even with Schemastore setup since Kirby uses plain `*.yml` extension for blueprints and not something like `*.kirby.yml`.
+You can enforce a certain validate in adding a special header comment. Which will most probably be needed even with Schemastore setup since Kirby uses plain `*.yml` extension for blueprints and not something like `*.kirby.yml`.
 
 **site/blueprints/pages/default.yml**
 ```yaml
-# yaml-language-server: $schema=https://getkirby.com/schema/blueprints.schema.json
+# yaml-language-server: $validate=https://getkirby.com/validate/blueprints.validate.json
 
 title: Default Page Blueprint
 

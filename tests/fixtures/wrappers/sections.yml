@@ -1,0 +1,7 @@
+sections:
+  mypages:
+    type: "pages"
+
+  myfiles:
+    type: "files"
+

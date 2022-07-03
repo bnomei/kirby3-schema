@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://getkirby.com/schema/blueprints.schema.json",
   "title": "JSON schema for Kirby 3 CMS blueprint files",
   "allOf": [
@@ -419,6 +419,9 @@
         "type": "boolean",
         "description": "Enables/disables reverse sorting"
       },
+      "headline": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
       "help": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Optional help text below the field"
@@ -482,7 +485,7 @@
         "$ref": "#/$defs/nonEmptyString",
         "description": "Sets the query to a parent to find items for the list"
       },
-      "pattern": {
+      "@pattern": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "A regular expression, which will be used to validate the input"
       },
@@ -492,7 +495,7 @@
       "query": {
         "$ref": "#/$defs/stringOrStringArrayUnique"
       },
-      "required": {
+      "@required": {
         "type": "boolean"
       },
       "search": {
@@ -700,7 +703,7 @@
             "$ref": "#/$defs/field-properties/query"
           },
           "required": {
-            "$ref": "#/$defs/field-properties/required"
+            "$ref": "#/$defs/field-properties/@required"
           },
           "search": {
             "$ref": "#/$defs/field-properties/search",
@@ -1053,13 +1056,13 @@
             "$ref": "#/$defs/field-properties/icon"
           },
           "pattern": {
-            "$ref": "#/$defs/field-properties/pattern"
+            "$ref": "#/$defs/field-properties/@pattern"
           },
           "placeholder": {
             "$ref": "#/$defs/field-properties/placeholder"
           },
           "required": {
-            "$ref": "#/$defs/field-properties/required"
+            "$ref": "#/$defs/field-properties/@required"
           },
           "spellcheck": {
             "$ref": "#/$defs/field-properties/spellcheck",

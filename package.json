@@ -1,0 +1,26 @@
+{
+  "name": "kirby3-schema",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bnomei/kirby3-schema.git"
+  },
+  "author": "Bruno Meilick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bnomei/kirby3-schema/issues"
+  },
+  "homepage": "https://github.com/bnomei/kirby3-schema#readme",
+  "devDependencies": {
+    "ajv": "^8.11.0",
+    "jest": "^28.1.2"
+  }
+}
