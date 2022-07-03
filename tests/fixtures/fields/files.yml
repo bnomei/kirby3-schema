@@ -1,0 +1,5 @@
+type: "files"
+
+min: 1
+
+# TODO: does not recognize the field as object

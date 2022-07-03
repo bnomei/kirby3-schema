@@ -1,0 +1,15 @@
+type: site
+
+title:
+  en: Site
+  de: Webseite
+
+options:
+  preview: https://mycustomdomain.com
+  update:
+    *: false
+    editor: true
+
+fields:
+  text:
+    type: text

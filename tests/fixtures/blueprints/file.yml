@@ -1,0 +1,21 @@
+type: file
+
+title: Project Image
+
+accept:
+  extension: jpg, png
+  maxheight: 200
+  orientation: landscape
+
+image:
+  back: blue-200
+  icon: 📝
+
+options:
+  delete:
+    admin: true
+    editor: false
+
+fields:
+  text:
+    type: text

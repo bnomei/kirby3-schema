@@ -21,6 +21,7 @@
   "homepage": "https://github.com/bnomei/kirby3-schema#readme",
   "devDependencies": {
     "ajv": "^8.11.0",
-    "jest": "^28.1.2"
+    "jest": "^28.1.2",
+    "js-yaml": "^4.1.0"
   }
 }

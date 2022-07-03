@@ -1,0 +1,18 @@
+type: user
+
+title: Client
+
+description: The client can edit all pages
+
+home: /panel/account
+
+image:
+  back: "{{ user.myCustomBackColor }}"
+
+permissions:
+  access:
+    users: true
+  users: false
+  user:
+    delete: false
+    changeRole: false

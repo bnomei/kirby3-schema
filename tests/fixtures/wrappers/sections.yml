@@ -1,7 +1,8 @@
 sections:
   mypages:
-    type: "pages"
+    type: pages
+    create: true
+    flip: false
 
   myfiles:
-    type: "files"
-
+    type: files

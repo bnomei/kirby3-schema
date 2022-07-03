@@ -1,0 +1,25 @@
+preset: pages
+
+type: page
+
+title: Some Page Title
+
+num: '{{ page.customSortNumberField }}'
+
+status:
+  draft: Draft
+  listed: Published
+
+icon: page
+
+image:
+  back: "#ff0000"
+
+navigation:
+  status: listed
+  template: default
+  sortBy: title asc
+
+fields:
+  text:
+    type: text

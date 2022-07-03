@@ -2,158 +2,27 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://getkirby.com/schema/blueprints.schema.json",
   "title": "JSON schema for Kirby 3 CMS blueprint files",
-  "allOf": [
+  "oneOf": [
     {
-      "type": "object",
-      "properties": {
-        "title": {
-          "$ref": "#/$defs/stringOrTranslated"
-        },
-        "description": {
-          "$ref": "#/$defs/stringOrTranslated"
-        },
-        "num": {
-          "$ref": "#/$defs/nonEmptyString",
-          "default": "zero"
-        },
-        "status": {
-          "type": "object",
-          "properties": {
-            "draft": {
-              "$ref": "#/$defs/stringOrLabelAndText"
-            },
-            "unlisted": {
-              "$ref": "#/$defs/stringOrLabelAndText"
-            },
-            "listed": {
-              "$ref": "#/$defs/stringOrLabelAndText"
-            }
-          }
-        },
-        "icon": {
-          "$ref": "#/$defs/nonEmptyString"
-        },
-        "image": {
-          "type": "object",
-          "properties": {
-            "back": {
-              "$ref": "#/$defs/nonEmptyString"
-            },
-            "icon": {
-              "$ref": "#/$defs/nonEmptyString"
-            }
-          }
-        },
-        "preset": {
-          "enum": ["files", "page", "pages"]
-        },
-        "options": {
-          "type": "object",
-          "properties": {
-            "changeSlug": {
-              "$ref": "#/$defs/booleanOrObject"
-            },
-            "changeStatus": {
-              "$ref": "#/$defs/booleanOrObject"
-            },
-            "changeTemplate": {
-              "$ref": "#/$defs/booleanOrStringArrayUnique"
-            },
-            "changeTitle": {
-              "$ref": "#/$defs/booleanOrObject"
-            },
-            "delete": {
-              "$ref": "#/$defs/booleanOrObject"
-            },
-            "duplicate": {
-              "$ref": "#/$defs/booleanOrObject"
-            },
-            "preview": {
-              "$ref": "#/$defs/booleanOrString"
-            },
-            "read": {
-              "$ref": "#/$defs/booleanOrObject"
-            },
-            "update": {
-              "$ref": "#/$defs/booleanOrObject"
-            },
-            "changeName": {
-              "$ref": "#/$defs/booleanOrObject"
-            },
-            "replace": {
-              "$ref": "#/$defs/booleanOrObject"
-            }
-          }
-        },
-        "navigation": {
-          "type": "object",
-          "properties": {
-            "status": {
-              "$ref": "#/$defs/stringOrStringArrayUnique"
-            },
-            "template": {
-              "$ref": "#/$defs/stringOrStringArrayUnique"
-            },
-            "sortBy": {
-              "$ref": "#/$defs/stringOrStringArrayUnique"
-            }
-          }
-        },
-        "accept": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/nonEmptyString"
-            },
-            {
-              "type": "object",
-              "properties": {
-                "extension": {
-                  "$ref": "#/$defs/stringOrStringArrayUnique"
-                },
-                "mime ": {
-                  "$ref": "#/$defs/stringOrStringArrayUnique"
-                },
-                "maxheight": {
-                  "$ref": "#/$defs/numberInPixel"
-                },
-                "maxsize": {
-                  "$ref": "#/$defs/numberInBytes"
-                },
-                "maxwidth": {
-                  "$ref": "#/$defs/numberInPixel"
-                },
-                "minheight": {
-                  "$ref": "#/$defs/numberInPixel"
-                },
-                "minsize": {
-                  "$ref": "#/$defs/numberInBytes"
-                },
-                "minwidth": {
-                  "$ref": "#/$defs/numberInPixel"
-                },
-                "orientation": {
-                  "$ref": "#/$defs/nonEmptyString"
-                },
-                "type": {
-                  "$ref": "#/$defs/stringOrStringArrayUnique"
-                }
-              }
-            }
-          ]
-        },
-        "fields": {
-          "$ref": "#/$defs/wrappers/fields"
-        },
-        "sections": {
-          "$ref": "#/$defs/wrappers/sections"
-        },
-        "columns": {
-          "$ref": "#/$defs/wrappers/columns"
-        },
-        "tabs": {
-          "$ref": "#/$defs/wrappers/tabs"
-        }
-      }
+      "$ref": "#/$defs/sections/info"
+    },
+    {
+      "$ref": "#/$defs/sections/fields"
+    },
+    {
+      "$ref": "#/$defs/sections/files"
+    },
+    {
+      "$ref": "#/$defs/blueprints/file"
+    },
+    {
+      "$ref": "#/$defs/blueprints/page"
+    },
+    {
+      "$ref": "#/$defs/blueprints/site"
+    },
+    {
+      "$ref": "#/$defs/blueprints/user"
     }
   ],
   "$defs": {
@@ -374,6 +243,332 @@
               "$ref": "#/$defs/wrappers/columns"
             }
           ]
+        }
+      }
+    },
+    "blueprint-properties": {
+      "title": {
+        "$ref": "#/$defs/stringOrTranslated"
+      },
+      "description": {
+        "$ref": "#/$defs/stringOrTranslated"
+      },
+      "num": {
+        "$ref": "#/$defs/nonEmptyString",
+        "default": "zero"
+      },
+      "status": {
+        "type": "object",
+        "properties": {
+          "draft": {
+            "$ref": "#/$defs/stringOrLabelAndText"
+          },
+          "unlisted": {
+            "$ref": "#/$defs/stringOrLabelAndText"
+          },
+          "listed": {
+            "$ref": "#/$defs/stringOrLabelAndText"
+          }
+        }
+      },
+      "icon": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "image": {
+        "type": "object",
+        "properties": {
+          "back": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "icon": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      },
+      "home": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "preset": {
+        "enum": ["files", "page", "pages"]
+      },
+      "options": {
+        "type": "object",
+        "properties": {
+          "changeSlug": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "changeStatus": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "changeTemplate": {
+            "$ref": "#/$defs/booleanOrStringArrayUnique"
+          },
+          "changeTitle": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "delete": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "duplicate": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "preview": {
+            "$ref": "#/$defs/booleanOrString"
+          },
+          "read": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "update": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "changeName": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "replace": {
+            "$ref": "#/$defs/booleanOrObject"
+          }
+        }
+      },
+      "permissions": {
+        "type": "object",
+        "properties": {
+          "access": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "files": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "pages": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "site": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "users": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "user": {
+            "$ref": "#/$defs/booleanOrObject"
+          }
+        }
+      },
+      "navigation": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/$defs/stringOrStringArrayUnique"
+          },
+          "template": {
+            "$ref": "#/$defs/stringOrStringArrayUnique"
+          },
+          "sortBy": {
+            "$ref": "#/$defs/stringOrStringArrayUnique"
+          }
+        }
+      }
+    },
+    "blueprints": {
+      "file": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "file"
+            ]
+          },
+          "title": {
+            "$ref": "#/$defs/blueprint-properties/title"
+          },
+          "accept": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "extension": {
+                    "$ref": "#/$defs/stringOrStringArrayUnique"
+                  },
+                  "mime ": {
+                    "$ref": "#/$defs/stringOrStringArrayUnique"
+                  },
+                  "maxheight": {
+                    "$ref": "#/$defs/numberInPixel"
+                  },
+                  "maxsize": {
+                    "$ref": "#/$defs/numberInBytes"
+                  },
+                  "maxwidth": {
+                    "$ref": "#/$defs/numberInPixel"
+                  },
+                  "minheight": {
+                    "$ref": "#/$defs/numberInPixel"
+                  },
+                  "minsize": {
+                    "$ref": "#/$defs/numberInBytes"
+                  },
+                  "minwidth": {
+                    "$ref": "#/$defs/numberInPixel"
+                  },
+                  "orientation": {
+                    "$ref": "#/$defs/nonEmptyString"
+                  },
+                  "type": {
+                    "$ref": "#/$defs/stringOrStringArrayUnique"
+                  }
+                }
+              }
+            ]
+          },
+          "image": {
+            "$ref": "#/$defs/blueprint-properties/image"
+          },
+          "options": {
+            "$ref": "#/$defs/blueprint-properties/options"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "sections": {
+            "$ref": "#/$defs/wrappers/sections"
+          },
+          "columns": {
+            "$ref": "#/$defs/wrappers/columns"
+          },
+          "tabs": {
+            "$ref": "#/$defs/wrappers/columns"
+          }
+        }
+      },
+      "page": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "page"
+            ]
+          },
+          "preset": {
+            "$ref": "#/$defs/blueprint-properties/preset"
+          },
+          "title": {
+            "$ref": "#/$defs/blueprint-properties/title"
+          },
+          "num": {
+            "$ref": "#/$defs/blueprint-properties/num"
+          },
+          "status": {
+            "$ref": "#/$defs/blueprint-properties/status"
+          },
+          "icon": {
+            "$ref": "#/$defs/blueprint-properties/icon"
+          },
+          "image": {
+            "$ref": "#/$defs/blueprint-properties/image"
+          },
+          "options": {
+            "$ref": "#/$defs/blueprint-properties/options"
+          },
+          "navigation": {
+            "$ref": "#/$defs/blueprint-properties/navigation"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "sections": {
+            "$ref": "#/$defs/wrappers/sections"
+          },
+          "columns": {
+            "$ref": "#/$defs/wrappers/columns"
+          },
+          "tabs": {
+            "$ref": "#/$defs/wrappers/columns"
+          }
+        }
+      },
+      "site": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "site"
+            ]
+          },
+          "title": {
+            "$ref": "#/$defs/blueprint-properties/title"
+          },
+          "options": {
+            "$ref": "#/$defs/blueprint-properties/options"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "sections": {
+            "$ref": "#/$defs/wrappers/sections"
+          },
+          "columns": {
+            "$ref": "#/$defs/wrappers/columns"
+          },
+          "tabs": {
+            "$ref": "#/$defs/wrappers/columns"
+          }
+        }
+      },
+      "user": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "user"
+            ]
+          },
+          "title": {
+            "$ref": "#/$defs/stringOrTranslated"
+          },
+          "description": {
+            "$ref": "#/$defs/stringOrTranslated"
+          },
+          "options": {
+            "$ref": "#/$defs/blueprint-properties/options"
+          },
+          "home": {
+            "$ref": "#/$defs/blueprint-properties/home"
+          },
+          "image": {
+            "$ref": "#/$defs/blueprint-properties/image"
+          },
+          "permissions": {
+            "$ref": "#/$defs/blueprint-properties/permissions"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "sections": {
+            "$ref": "#/$defs/wrappers/sections"
+          },
+          "columns": {
+            "$ref": "#/$defs/wrappers/columns"
+          },
+          "tabs": {
+            "$ref": "#/$defs/wrappers/columns"
+          }
         }
       }
     },
@@ -1183,6 +1378,7 @@
         "required": [
           "type"
         ],
+        "additionalProperties": false,
         "properties": {
           "type": {
             "enum": [
@@ -1207,8 +1403,9 @@
       "fields": {
         "type": "object",
         "required": [
-          "type"
+          "type", "fields"
         ],
+        "additionalProperties": false,
         "properties": {
           "type": {
             "enum": [
@@ -1225,6 +1422,7 @@
         "required": [
           "type"
         ],
+        "additionalProperties": false,
         "properties": {
           "type": {
             "enum": [
@@ -1301,6 +1499,7 @@
         "required": [
           "type"
         ],
+        "additionalProperties": false,
         "properties": {
           "type": {
             "enum": [

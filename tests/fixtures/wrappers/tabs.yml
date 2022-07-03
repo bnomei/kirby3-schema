@@ -1,0 +1,9 @@
+tabs:
+  content:
+    fields:
+      mytext:
+        type: text
+
+  seo:
+    sections:
+      meta: sections/meta
