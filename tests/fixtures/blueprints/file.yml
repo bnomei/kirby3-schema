@@ -18,4 +18,5 @@ options:
 
 fields:
   text:
+    label: Text
     type: text

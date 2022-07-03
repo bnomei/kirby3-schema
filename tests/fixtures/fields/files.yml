@@ -1,5 +1,5 @@
-type: "files"
-
+label: Files
+type: files
 min: 1
-
-# TODO: does not recognize the field as object
+uploads:
+  parent: pae

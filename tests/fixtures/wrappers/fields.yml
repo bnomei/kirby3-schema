@@ -1,3 +1,5 @@
+type: page
+
 fields:
   mytext:
     type: text

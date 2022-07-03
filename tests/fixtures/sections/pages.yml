@@ -1,5 +1,9 @@
+label: Drafts
 type: pages
-create: true
-
-
-# TODO: does not recognize the section
+status: draft
+templates: article
+columns:
+  dimensions:
+    label: Dimensions
+    align: right
+    width: 1/4

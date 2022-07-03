@@ -1,9 +1,9 @@
 const validate = require('./validate')
 
-test('fields', () => {
+test('files', () => {
     expect(validate('./tests/fixtures/fields/files.yml')).toBeTruthy();
 });
 
-test('sections', () => {
+test('text', () => {
     expect(validate('./tests/fixtures/fields/text.yml')).toBeTruthy();
 });

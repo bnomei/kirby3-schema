@@ -4,6 +4,12 @@
   "title": "JSON schema for Kirby 3 CMS blueprint files",
   "oneOf": [
     {
+      "$ref": "#/$defs/fields/files"
+    },
+    {
+      "$ref": "#/$defs/fields/text"
+    },
+    {
       "$ref": "#/$defs/sections/info"
     },
     {
@@ -11,6 +17,12 @@
     },
     {
       "$ref": "#/$defs/sections/files"
+    },
+    {
+      "$ref": "#/$defs/sections/pages"
+    },
+    {
+      "$ref": "#/$defs/sections/stats"
     },
     {
       "$ref": "#/$defs/blueprints/file"
@@ -119,12 +131,13 @@
     },
     "translated": {
       "type": "object",
-      "properties": {
-        "en": {
-          "$ref": "#/$defs/nonEmptyString"
-        },
-        "de": {
-          "$ref": "#/$defs/nonEmptyString"
+      "patternProperties": {
+        "[a-z]{2}": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          ]
         }
       }
     },
@@ -177,6 +190,27 @@
         }
       }
     },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/field-properties/@label"
+        },
+        "value": {
+          "$ref": "#/$defs/field-properties/@value"
+        },
+        "info": {
+          "$ref": "#/$defs/field-properties/@info"
+        },
+        "link": {
+          "$ref": "#/$defs/field-properties/@linkUrl"
+        },
+        "theme": {
+          "$ref": "#/$defs/field-properties/@theme"
+        }
+      }
+    },
     "section": {
       "type": "object",
       "properties": {
@@ -203,16 +237,7 @@
       },
       "required": [
         "width"
-      ],
-      "patternProperties": {
-        ".*": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/section"
-            }
-          ]
-        }
-      }
+      ]
     },
     "tab": {
       "type": "object",
@@ -247,17 +272,24 @@
       }
     },
     "blueprint-properties": {
-      "title": {
+      "@title": {
         "$ref": "#/$defs/stringOrTranslated"
       },
-      "description": {
+      "@description": {
         "$ref": "#/$defs/stringOrTranslated"
       },
-      "num": {
+      "@num": {
         "$ref": "#/$defs/nonEmptyString",
         "default": "zero"
       },
-      "status": {
+      "@reports": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/$defs/report"
+        }
+      },
+      "@status": {
         "type": "object",
         "properties": {
           "draft": {
@@ -271,10 +303,10 @@
           }
         }
       },
-      "icon": {
+      "@icon": {
         "$ref": "#/$defs/nonEmptyString"
       },
-      "image": {
+      "@image": {
         "type": "object",
         "properties": {
           "back": {
@@ -285,13 +317,13 @@
           }
         }
       },
-      "home": {
+      "@home": {
         "$ref": "#/$defs/nonEmptyString"
       },
-      "preset": {
+      "@preset": {
         "enum": ["files", "page", "pages"]
       },
-      "options": {
+      "@options": {
         "type": "object",
         "properties": {
           "changeSlug": {
@@ -329,7 +361,7 @@
           }
         }
       },
-      "permissions": {
+      "@permissions": {
         "type": "object",
         "properties": {
           "access": {
@@ -352,7 +384,7 @@
           }
         }
       },
-      "navigation": {
+      "@navigation": {
         "type": "object",
         "properties": {
           "status": {
@@ -381,7 +413,7 @@
             ]
           },
           "title": {
-            "$ref": "#/$defs/blueprint-properties/title"
+            "$ref": "#/$defs/blueprint-properties/@title"
           },
           "accept": {
             "oneOf": [
@@ -426,10 +458,10 @@
             ]
           },
           "image": {
-            "$ref": "#/$defs/blueprint-properties/image"
+            "$ref": "#/$defs/blueprint-properties/@image"
           },
           "options": {
-            "$ref": "#/$defs/blueprint-properties/options"
+            "$ref": "#/$defs/blueprint-properties/@options"
           },
           "fields": {
             "$ref": "#/$defs/wrappers/fields"
@@ -458,28 +490,28 @@
             ]
           },
           "preset": {
-            "$ref": "#/$defs/blueprint-properties/preset"
+            "$ref": "#/$defs/blueprint-properties/@preset"
           },
           "title": {
-            "$ref": "#/$defs/blueprint-properties/title"
+            "$ref": "#/$defs/blueprint-properties/@title"
           },
           "num": {
-            "$ref": "#/$defs/blueprint-properties/num"
+            "$ref": "#/$defs/blueprint-properties/@num"
           },
           "status": {
-            "$ref": "#/$defs/blueprint-properties/status"
+            "$ref": "#/$defs/blueprint-properties/@status"
           },
           "icon": {
-            "$ref": "#/$defs/blueprint-properties/icon"
+            "$ref": "#/$defs/blueprint-properties/@icon"
           },
           "image": {
-            "$ref": "#/$defs/blueprint-properties/image"
+            "$ref": "#/$defs/blueprint-properties/@image"
           },
           "options": {
-            "$ref": "#/$defs/blueprint-properties/options"
+            "$ref": "#/$defs/blueprint-properties/@options"
           },
           "navigation": {
-            "$ref": "#/$defs/blueprint-properties/navigation"
+            "$ref": "#/$defs/blueprint-properties/@navigation"
           },
           "fields": {
             "$ref": "#/$defs/wrappers/fields"
@@ -491,7 +523,7 @@
             "$ref": "#/$defs/wrappers/columns"
           },
           "tabs": {
-            "$ref": "#/$defs/wrappers/columns"
+            "$ref": "#/$defs/wrappers/tabs"
           }
         }
       },
@@ -508,10 +540,10 @@
             ]
           },
           "title": {
-            "$ref": "#/$defs/blueprint-properties/title"
+            "$ref": "#/$defs/blueprint-properties/@title"
           },
           "options": {
-            "$ref": "#/$defs/blueprint-properties/options"
+            "$ref": "#/$defs/blueprint-properties/@options"
           },
           "fields": {
             "$ref": "#/$defs/wrappers/fields"
@@ -546,16 +578,16 @@
             "$ref": "#/$defs/stringOrTranslated"
           },
           "options": {
-            "$ref": "#/$defs/blueprint-properties/options"
+            "$ref": "#/$defs/blueprint-properties/@options"
           },
           "home": {
-            "$ref": "#/$defs/blueprint-properties/home"
+            "$ref": "#/$defs/blueprint-properties/@home"
           },
           "image": {
-            "$ref": "#/$defs/blueprint-properties/image"
+            "$ref": "#/$defs/blueprint-properties/@image"
           },
           "permissions": {
-            "$ref": "#/$defs/blueprint-properties/permissions"
+            "$ref": "#/$defs/blueprint-properties/@permissions"
           },
           "fields": {
             "$ref": "#/$defs/wrappers/fields"
@@ -573,16 +605,44 @@
       }
     },
     "field-properties": {
-      "after": {
+      "@after": {
         "$ref": "#/$defs/nonEmptyString"
       },
-      "autofocus": {
+      "@align": {
+        "enum": [
+          "left", "center", "right"
+        ],
+        "default": "left"
+      },
+      "@autofocus": {
         "type": "boolean"
       },
-      "before": {
+      "@before": {
         "$ref": "#/$defs/nonEmptyString"
       },
-      "converter": {
+      "@columns": {
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "type": "object",
+            "properties": {
+              "label": {
+                 "$ref": "#/$defs/field-properties/@label"
+              },
+              "align": {
+                "$ref": "#/$defs/field-properties/@align"
+              },
+              "width": {
+                "$ref": "#/$defs/fraction"
+              },
+              "value": {
+                "$ref": "#/$defs/field-properties/@value"
+              }
+            }
+          }
+        }
+      },
+      "@converter": {
         "enum": [
           "lower",
           "upper",
@@ -590,93 +650,96 @@
           "slug"
         ]
       },
-      "counter": {
+      "@counter": {
         "type": "boolean"
       },
-      "create": {
+      "@create": {
         "$ref": "#/$defs/booleanOrStringArrayUnique"
       },
-      "default": {
+      "@default": {
         "$ref": "#/$defs/arrayOrBooleanOrNumberOrObjectOrString",
         "description": "Default value for the field, which will be used when a page/file/user is created"
       },
-      "disabled": {
+      "@disabled": {
         "type": "boolean"
       },
-      "empty": {
+      "@empty": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Sets the text for the empty state box"
       },
-      "extends": {
+      "@extends": {
         "$ref": "#/$defs/nonEmptyString"
       },
-      "flip": {
+      "@flip": {
         "type": "boolean",
         "description": "Enables/disables reverse sorting"
       },
-      "headline": {
+      "@headline": {
         "$ref": "#/$defs/nonEmptyString"
       },
-      "help": {
+      "@help": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Optional help text below the field"
       },
-      "image": {
+      "@image": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Image options to control the source and look of file previews"
       },
-      "icon": {
+      "@icon": {
         "$ref": "#/$defs/nonEmptyString"
       },
-      "info": {
+      "@info": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Optional info text setup"
       },
-      "label": {
+      "@label": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "label is the new official replacement for headline"
       },
-      "layout": {
+      "@layout": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Section layout"
       },
-      "limit": {
+      "@limit": {
         "type": "number",
         "exclusiveMinimum": 0,
         "description": "Sets the number of items per page"
       },
-      "link": {
+      "@link": {
         "type": "boolean"
       },
-      "max": {
+      "@linkUrl": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@max": {
         "type": "number",
         "exclusiveMinimum": 0
       },
-      "maxlength": {
+      "@maxlength": {
         "type": "number",
         "exclusiveMinimum": 0
       },
-      "min": {
+      "@min": {
         "type": "number",
         "exclusiveMinimum": 0
       },
-      "minlength": {
+      "@minlength": {
         "type": "number",
         "exclusiveMinimum": 0
       },
-      "multiple": {
+      "@multiple": {
         "type": "boolean",
         "description": "If false, only a single one can be selected"
       },
-      "options": {
+      "@options": {
         "$ref": "#/$defs/stringOrStringArrayUnique"
       },
-      "page": {
+      "@page": {
         "type": "number",
         "exclusiveMinimum": 0,
         "description": "Sets the default page for the pagination"
       },
-      "parent": {
+      "@parent": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Sets the query to a parent to find items for the list"
       },
@@ -684,19 +747,19 @@
         "$ref": "#/$defs/nonEmptyString",
         "description": "A regular expression, which will be used to validate the input"
       },
-      "placeholder": {
+      "@placeholder": {
         "$ref": "#/$defs/nonEmptyString"
       },
-      "query": {
+      "@query": {
         "$ref": "#/$defs/stringOrStringArrayUnique"
       },
       "@required": {
         "type": "boolean"
       },
-      "search": {
+      "@search": {
         "type": "boolean"
       },
-      "size": {
+      "@size": {
         "enum": [
           "tiny",
           "small",
@@ -706,18 +769,18 @@
         ],
         "description": "The size option controls the size of cards"
       },
-      "sortBy": {
+      "@sortBy": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Overwrites manual sorting and sorts by the given field and sorting direction"
       },
-      "sortable": {
+      "@sortable": {
         "type": "boolean",
         "description": "Enables/disables manual sorting"
       },
-      "spellcheck": {
+      "@spellcheck": {
         "type": "boolean"
       },
-      "status": {
+      "@status": {
         "enum": [
           "draft",
           "unlisted",
@@ -726,18 +789,18 @@
           "all"
         ]
       },
-      "template": {
+      "@template": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Filters all files by template and also sets the template, which will be used for all uploads"
       },
-      "templates": {
+      "@templates": {
         "$ref": "#/$defs/stringOrStringArrayUnique"
       },
-      "text": {
+      "@text": {
         "$ref": "#/$defs/nonEmptyString",
         "description": "Setup for the main text in the list or cards"
       },
-      "theme": {
+      "@theme": {
         "enum": [
           "none",
           "positive",
@@ -745,10 +808,10 @@
           "negative"
         ]
       },
-      "translate": {
+      "@translate": {
         "type": "boolean"
       },
-      "uploads": {
+      "@uploads": {
         "oneOf": [
           {
             "$ref": "#/$defs/booleanOrString"
@@ -766,10 +829,13 @@
           }
         ]
       },
-      "when": {
+      "@value": {
+        "$ref": "#/$defs/stringOrNumber"
+      },
+      "@when": {
         "$ref": "#/$defs/nonEmptyString"
       },
-      "width": {
+      "@width": {
         "enum": [
           "1/1",
           "1/2",
@@ -794,7 +860,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -810,7 +876,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -826,7 +892,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -842,7 +908,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -858,72 +924,72 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           },
           "default": {
-            "$ref": "#/$defs/field-properties/default"
+            "$ref": "#/$defs/field-properties/@default"
           },
           "disabled": {
-            "$ref": "#/$defs/field-properties/disabled"
+            "$ref": "#/$defs/field-properties/@disabled"
           },
           "empty": {
-            "$ref": "#/$defs/field-properties/empty"
+            "$ref": "#/$defs/field-properties/@empty"
           },
           "help": {
-            "$ref": "#/$defs/field-properties/help"
+            "$ref": "#/$defs/field-properties/@help"
           },
           "image": {
-            "$ref": "#/$defs/field-properties/image"
+            "$ref": "#/$defs/field-properties/@image"
           },
           "info": {
-            "$ref": "#/$defs/field-properties/info"
+            "$ref": "#/$defs/field-properties/@info"
           },
           "label": {
-            "$ref": "#/$defs/field-properties/label"
+            "$ref": "#/$defs/field-properties/@label"
           },
           "link": {
-            "$ref": "#/$defs/field-properties/link"
+            "$ref": "#/$defs/field-properties/@link"
           },
           "max": {
-            "$ref": "#/$defs/field-properties/max"
+            "$ref": "#/$defs/field-properties/@max"
           },
           "min": {
-            "$ref": "#/$defs/field-properties/min"
+            "$ref": "#/$defs/field-properties/@min"
           },
           "multiple": {
-            "$ref": "#/$defs/field-properties/multiple",
+            "$ref": "#/$defs/field-properties/@multiple",
             "default": false
           },
           "query": {
-            "$ref": "#/$defs/field-properties/query"
+            "$ref": "#/$defs/field-properties/@query"
           },
           "required": {
             "$ref": "#/$defs/field-properties/@required"
           },
           "search": {
-            "$ref": "#/$defs/field-properties/search",
+            "$ref": "#/$defs/field-properties/@search",
             "default": true
           },
           "size": {
-            "$ref": "#/$defs/field-properties/size",
+            "$ref": "#/$defs/field-properties/@size",
             "default": "auto"
           },
           "text": {
-            "$ref": "#/$defs/field-properties/text"
+            "$ref": "#/$defs/field-properties/@text"
           },
           "translate": {
-            "$ref": "#/$defs/field-properties/translate",
+            "$ref": "#/$defs/field-properties/@translate",
             "default": true
           },
           "uploads": {
-            "$ref": "#/$defs/field-properties/uploads",
+            "$ref": "#/$defs/field-properties/@uploads",
             "default": []
           },
           "when": {
-            "$ref": "#/$defs/field-properties/when"
+            "$ref": "#/$defs/field-properties/@when"
           },
           "width": {
-            "$ref": "#/$defs/field-properties/width"
+            "$ref": "#/$defs/field-properties/@width"
           }
         }
       },
@@ -939,7 +1005,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -955,7 +1021,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -971,7 +1037,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -987,7 +1053,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1003,7 +1069,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1019,7 +1085,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1035,7 +1101,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1051,7 +1117,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1067,7 +1133,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1083,7 +1149,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1099,7 +1165,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1115,7 +1181,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1131,7 +1197,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1147,7 +1213,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1163,7 +1229,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1179,7 +1245,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1195,7 +1261,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1211,67 +1277,67 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           },
           "after": {
-            "$ref": "#/$defs/field-properties/after"
+            "$ref": "#/$defs/field-properties/@after"
           },
           "autofocus": {
-            "$ref": "#/$defs/field-properties/autofocus"
+            "$ref": "#/$defs/field-properties/@autofocus"
           },
           "before": {
-            "$ref": "#/$defs/field-properties/before"
+            "$ref": "#/$defs/field-properties/@before"
           },
           "converter": {
-            "$ref": "#/$defs/field-properties/converter"
+            "$ref": "#/$defs/field-properties/@converter"
           },
           "counter": {
-            "$ref": "#/$defs/field-properties/counter",
+            "$ref": "#/$defs/field-properties/@counter",
             "default": true
           },
           "default": {
-            "$ref": "#/$defs/field-properties/default"
+            "$ref": "#/$defs/field-properties/@default"
           },
           "disabled": {
-            "$ref": "#/$defs/field-properties/disabled"
+            "$ref": "#/$defs/field-properties/@disabled"
           },
           "help": {
-            "$ref": "#/$defs/field-properties/help"
+            "$ref": "#/$defs/field-properties/@help"
           },
           "icon": {
-            "$ref": "#/$defs/field-properties/icon"
+            "$ref": "#/$defs/field-properties/@icon"
           },
           "label": {
-            "$ref": "#/$defs/field-properties/label"
+            "$ref": "#/$defs/field-properties/@label"
           },
           "maxlength": {
-            "$ref": "#/$defs/field-properties/maxlength"
+            "$ref": "#/$defs/field-properties/@maxlength"
           },
           "minlength": {
-            "$ref": "#/$defs/field-properties/icon"
+            "$ref": "#/$defs/field-properties/@icon"
           },
           "pattern": {
             "$ref": "#/$defs/field-properties/@pattern"
           },
           "placeholder": {
-            "$ref": "#/$defs/field-properties/placeholder"
+            "$ref": "#/$defs/field-properties/@placeholder"
           },
           "required": {
             "$ref": "#/$defs/field-properties/@required"
           },
           "spellcheck": {
-            "$ref": "#/$defs/field-properties/spellcheck",
+            "$ref": "#/$defs/field-properties/@spellcheck",
             "default": false
           },
           "translate": {
-            "$ref": "#/$defs/field-properties/translate",
+            "$ref": "#/$defs/field-properties/@translate",
             "default": true
           },
           "when": {
-            "$ref": "#/$defs/field-properties/when"
+            "$ref": "#/$defs/field-properties/@when"
           },
           "width": {
-            "$ref": "#/$defs/field-properties/width"
+            "$ref": "#/$defs/field-properties/@width"
           }
         }
       },
@@ -1287,7 +1353,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1303,7 +1369,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1319,7 +1385,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1335,7 +1401,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1351,7 +1417,7 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       },
@@ -1367,39 +1433,12 @@
             ]
           },
           "extends": {
-            "$ref": "#/$defs/field-properties/extends"
+            "$ref": "#/$defs/field-properties/@extends"
           }
         }
       }
     },
     "sections": {
-      "info": {
-        "type": "object",
-        "required": [
-          "type"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "type": {
-            "enum": [
-              "info"
-            ]
-          },
-          "headline": {
-            "$ref": "#/$defs/field-properties/headline"
-          },
-          "label": {
-            "$ref": "#/$defs/field-properties/label"
-          },
-          "text": {
-            "$ref": "#/$defs/field-properties/text"
-          },
-          "theme": {
-            "$ref": "#/$defs/field-properties/theme",
-            "default": "info"
-          }
-        }
-      },
       "fields": {
         "type": "object",
         "required": [
@@ -1430,67 +1469,97 @@
             ]
           },
           "empty": {
-            "$ref": "#/$defs/field-properties/empty"
+            "$ref": "#/$defs/field-properties/@empty"
           },
           "flip": {
-            "$ref": "#/$defs/field-properties/flip",
+            "$ref": "#/$defs/field-properties/@flip",
             "default": false
           },
           "headline": {
-            "$ref": "#/$defs/field-properties/headline"
+            "$ref": "#/$defs/field-properties/@headline"
           },
           "help": {
-            "$ref": "#/$defs/field-properties/help"
+            "$ref": "#/$defs/field-properties/@help"
           },
           "image": {
-            "$ref": "#/$defs/field-properties/image"
+            "$ref": "#/$defs/field-properties/@image"
           },
           "info": {
-            "$ref": "#/$defs/field-properties/info"
+            "$ref": "#/$defs/field-properties/@info"
           },
           "label": {
-            "$ref": "#/$defs/field-properties/label"
+            "$ref": "#/$defs/field-properties/@label"
           },
           "layout": {
-            "$ref": "#/$defs/field-properties/layout",
+            "$ref": "#/$defs/field-properties/@layout",
             "default": "list"
           },
           "limit": {
-            "$ref": "#/$defs/field-properties/limit",
+            "$ref": "#/$defs/field-properties/@limit",
             "default": 20
           },
           "max": {
-            "$ref": "#/$defs/field-properties/max"
+            "$ref": "#/$defs/field-properties/@max"
           },
           "min": {
-            "$ref": "#/$defs/field-properties/min"
+            "$ref": "#/$defs/field-properties/@min"
           },
           "page": {
-            "$ref": "#/$defs/field-properties/page"
+            "$ref": "#/$defs/field-properties/@page"
           },
           "parent": {
-            "$ref": "#/$defs/field-properties/parent"
+            "$ref": "#/$defs/field-properties/@parent"
           },
           "size": {
-            "$ref": "#/$defs/field-properties/size",
+            "$ref": "#/$defs/field-properties/@size",
             "default": "auto"
           },
+          "search": {
+            "$ref": "#/$defs/field-properties/@search"
+          },
           "sortBy": {
-            "$ref": "#/$defs/field-properties/sortBy"
+            "$ref": "#/$defs/field-properties/@sortBy"
           },
           "sortable": {
-            "$ref": "#/$defs/field-properties/sortable",
+            "$ref": "#/$defs/field-properties/@sortable",
             "default": true
           },
           "status": {
-            "$ref": "#/$defs/field-properties/status"
+            "$ref": "#/$defs/field-properties/@status"
           },
           "template": {
-            "$ref": "#/$defs/field-properties/template"
+            "$ref": "#/$defs/field-properties/@template"
           },
           "text": {
             "$ref": "#/$defs/nonEmptyString",
             "default": "'{{ page.title }}'"
+          }
+        }
+      },
+      "info": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "info"
+            ]
+          },
+          "headline": {
+            "$ref": "#/$defs/field-properties/@headline"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "text": {
+            "$ref": "#/$defs/field-properties/@text"
+          },
+          "theme": {
+            "$ref": "#/$defs/field-properties/@theme",
+            "default": "info"
           }
         }
       },
@@ -1507,70 +1576,103 @@
             ]
           },
           "create": {
-            "$ref": "#/$defs/field-properties/create"
+            "$ref": "#/$defs/field-properties/@create"
+          },
+          "columns": {
+            "$ref": "#/$defs/field-properties/@columns"
           },
           "empty": {
-            "$ref": "#/$defs/field-properties/empty"
+            "$ref": "#/$defs/field-properties/@empty"
           },
           "flip": {
-            "$ref": "#/$defs/field-properties/flip",
+            "$ref": "#/$defs/field-properties/@flip",
             "default": false
           },
           "headline": {
-            "$ref": "#/$defs/field-properties/headline"
+            "$ref": "#/$defs/field-properties/@headline"
           },
           "help": {
-            "$ref": "#/$defs/field-properties/help"
+            "$ref": "#/$defs/field-properties/@help"
           },
           "image": {
-            "$ref": "#/$defs/field-properties/image"
+            "$ref": "#/$defs/field-properties/@image"
           },
           "info": {
-            "$ref": "#/$defs/field-properties/info"
+            "$ref": "#/$defs/field-properties/@info"
           },
           "label": {
-            "$ref": "#/$defs/field-properties/label"
+            "$ref": "#/$defs/field-properties/@label"
           },
           "layout": {
-            "$ref": "#/$defs/field-properties/layout",
+            "$ref": "#/$defs/field-properties/@layout",
             "default": "list"
           },
           "limit": {
-            "$ref": "#/$defs/field-properties/limit",
+            "$ref": "#/$defs/field-properties/@limit",
             "default": 20
           },
           "max": {
-            "$ref": "#/$defs/field-properties/max"
+            "$ref": "#/$defs/field-properties/@max"
           },
           "min": {
-            "$ref": "#/$defs/field-properties/min"
+            "$ref": "#/$defs/field-properties/@min"
           },
           "page": {
-            "$ref": "#/$defs/field-properties/page"
+            "$ref": "#/$defs/field-properties/@page"
           },
           "parent": {
-            "$ref": "#/$defs/field-properties/parent"
+            "$ref": "#/$defs/field-properties/@parent"
+          },
+          "search": {
+            "$ref": "#/$defs/field-properties/@search"
           },
           "size": {
-            "$ref": "#/$defs/field-properties/size",
+            "$ref": "#/$defs/field-properties/@size",
             "default": "auto"
           },
           "sortBy": {
-            "$ref": "#/$defs/field-properties/sortBy"
+            "$ref": "#/$defs/field-properties/@sortBy"
           },
           "sortable": {
-            "$ref": "#/$defs/field-properties/sortable",
+            "$ref": "#/$defs/field-properties/@sortable",
             "default": true
           },
           "status": {
-            "$ref": "#/$defs/field-properties/status"
+            "$ref": "#/$defs/field-properties/@status"
           },
           "templates": {
-            "$ref": "#/$defs/field-properties/templates"
+            "$ref": "#/$defs/field-properties/@templates"
           },
           "text": {
             "$ref": "#/$defs/nonEmptyString",
             "default": "'{{ page.title }}'"
+          }
+        }
+      },
+      "stats": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "stats"
+            ]
+          },
+          "headline": {
+            "$ref": "#/$defs/field-properties/@headline"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "reports": {
+            "$ref": "#/$defs/blueprint-properties/@reports"
+          },
+          "size": {
+            "$ref": "#/$defs/field-properties/@size",
+            "default": "large"
           }
         }
       }

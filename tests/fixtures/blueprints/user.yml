@@ -16,3 +16,8 @@ permissions:
   user:
     delete: false
     changeRole: false
+
+fields:
+  text:
+    label: Text
+    type: text

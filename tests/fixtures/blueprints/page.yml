@@ -22,4 +22,5 @@ navigation:
 
 fields:
   text:
+    label: Tex
     type: text

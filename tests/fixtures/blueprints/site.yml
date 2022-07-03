@@ -7,9 +7,10 @@ title:
 options:
   preview: https://mycustomdomain.com
   update:
-    *: false
+    '*': false
     editor: true
 
 fields:
   text:
+    label: Text
     type: text
