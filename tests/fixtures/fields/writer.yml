@@ -4,3 +4,5 @@ marks:
   - bold
   - italic
   - strike
+nodes:
+  - paragraph

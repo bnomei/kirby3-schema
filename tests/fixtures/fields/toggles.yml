@@ -2,8 +2,6 @@ type: toggles
 label: Icons
 labels: false
 options:
-  # Text will be used as title
-  # attribute for the <label>
   - value: left
     text: Left
     icon: text-left
