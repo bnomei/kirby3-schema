@@ -1,6 +1,6 @@
-preset: pages
+blueprint: page
 
-type: page
+preset: pages
 
 title: Some Page Title
 
@@ -20,7 +20,10 @@ navigation:
   template: default
   sortBy: title asc
 
-fields:
-  text:
-    label: Tex
-    type: text
+sections:
+  content:
+    type: fields
+    fields:
+      text:
+        label: Tex
+        type: text

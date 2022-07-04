@@ -1,6 +1,7 @@
 type: toggles
 label: Icons
 labels: false
+grow: false
 options:
   - value: left
     text: Left

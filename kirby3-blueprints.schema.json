@@ -600,11 +600,11 @@
       "file": {
         "type": "object",
         "required": [
-          "type"
+          "blueprint"
         ],
         "additionalProperties": false,
         "properties": {
-          "type": {
+          "blueprint": {
             "enum": [
               "file"
             ]
@@ -670,18 +670,18 @@
             "$ref": "#/$defs/wrappers/columns"
           },
           "tabs": {
-            "$ref": "#/$defs/wrappers/columns"
+            "$ref": "#/$defs/wrappers/tabs"
           }
         }
       },
       "page": {
         "type": "object",
         "required": [
-          "type"
+          "blueprint"
         ],
         "additionalProperties": false,
         "properties": {
-          "type": {
+          "blueprint": {
             "enum": [
               "page"
             ]
@@ -727,11 +727,11 @@
       "site": {
         "type": "object",
         "required": [
-          "type"
+          "blueprint"
         ],
         "additionalProperties": false,
         "properties": {
-          "type": {
+          "blueprint": {
             "enum": [
               "site"
             ]
@@ -752,18 +752,18 @@
             "$ref": "#/$defs/wrappers/columns"
           },
           "tabs": {
-            "$ref": "#/$defs/wrappers/columns"
+            "$ref": "#/$defs/wrappers/tabs"
           }
         }
       },
       "user": {
         "type": "object",
         "required": [
-          "type"
+          "blueprint"
         ],
         "additionalProperties": false,
         "properties": {
-          "type": {
+          "blueprint": {
             "enum": [
               "user"
             ]
@@ -796,7 +796,7 @@
             "$ref": "#/$defs/wrappers/columns"
           },
           "tabs": {
-            "$ref": "#/$defs/wrappers/columns"
+            "$ref": "#/$defs/wrappers/tabs"
           }
         }
       }
@@ -1056,7 +1056,7 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/textValuePair"
+              "$ref": "#/$defs/objectWithStringValues"
             }
           }
         ]
@@ -1541,6 +1541,9 @@
           },
           "label": {
             "$ref": "#/$defs/field-properties/@label"
+          },
+          "layout": {
+            "$ref": "#/$defs/field-properties/@layout"
           },
           "link": {
             "$ref": "#/$defs/field-properties/@link"
@@ -2792,10 +2795,17 @@
             "default": false
           },
           "text": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/translated"
-            }
+            "oneOf": [
+              {
+                "$ref": "#/$defs/stringArrayUnique"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/translated"
+                }
+              }
+            ]
           },
           "translate": {
             "$ref": "#/$defs/field-properties/@translate",
@@ -3442,7 +3452,7 @@
         "type": "object",
         "patternProperties": {
           ".*": {
-            "anyOf": [
+            "oneOf": [
               {
                 "$ref": "#/$defs/nonEmptyString",
                 "description": "shorthand version of extends property"

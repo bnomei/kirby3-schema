@@ -1,4 +1,4 @@
-type: page
+blueprint: page
 
 fields:
   mytext:
