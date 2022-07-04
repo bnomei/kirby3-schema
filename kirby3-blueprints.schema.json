@@ -890,7 +890,14 @@
         "type": "boolean"
       },
       "@create": {
-        "$ref": "#/$defs/booleanOrStringArrayUnique"
+        "oneOf": [
+          {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          {
+            "$ref": "#/$defs/booleanOrStringArrayUnique"
+          }
+        ]
       },
       "@default": {
         "$ref": "#/$defs/arrayOrBooleanOrNumberOrObjectOrString",
@@ -952,7 +959,22 @@
         "description": "Optional help text below the field"
       },
       "@image": {
-        "$ref": "#/$defs/nonEmptyString",
+        "oneOf": [
+          {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "ratio": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "cover": {
+                "type": "boolean"
+              }
+            }
+          }
+        ],
         "description": "Image options to control the source and look of file previews"
       },
       "@icon": {
@@ -3442,12 +3464,22 @@
         }
       },
       "columns": {
-        "type": "object",
-        "patternProperties": {
-          ".*": {
-            "$ref": "#/$defs/column"
+        "oneOf": [
+          {
+            "type": "object",
+            "patternProperties": {
+              ".*": {
+                "$ref": "#/$defs/column"
+              }
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/column"
+            }
           }
-        }
+        ]
       },
       "tabs": {
         "type": "object",
