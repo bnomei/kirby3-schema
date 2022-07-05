@@ -74,21 +74,6 @@ fields:
     type: text
 ```
 
-### Enforcing a Schema for a single file
-
-You can enforce a certain schema in adding a special header comment. Which will most probably be needed even with Schemastore setup since Kirby uses plain `*.yml` extension for blueprints and not something like `*.kirby.yml`.
-
-**site/blueprints/pages/default.yml**
-```diff
-+ # yaml-language-server: $validate=https://getkirby.com/schema/blueprints.schema.json
-
-title: Default Page Blueprint
-
-fields:
-  text:
-    type: text
-```
-
 ## Disclaimer
 
 This schema is provided "as is" with no guarantee. Use it at your own risk and always test it yourself before using it in a production environment. If you find any issues, please [create a new issue](https://github.com/bnomei/kirby3-schema/issues/new).
