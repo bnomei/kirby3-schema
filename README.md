@@ -80,7 +80,7 @@ You can enforce a certain validate in adding a special header comment. Which wil
 
 **site/blueprints/pages/default.yml**
 ```diff
-+ # yaml-language-server: $validate=https://getkirby.com/validate/blueprints.validate.json
++ # yaml-language-server: $validate=https://getkirby.com/schema/blueprints.schema.json
 
 title: Default Page Blueprint
 
