@@ -1,10 +1,28 @@
-# kirby3-validate
+# Kirby 3 Schema
 
-## Setup
+![Release](https://flat.badgen.net/github/release/bnomei/kirby3-schema?color=ae81ff)
+![Downloads](https://flat.badgen.net/github/assets-dl/bnomei/kirby3-schema?color=272822)
+[![Twitter](https://flat.badgen.net/badge/twitter/bnomei?color=66d9ef)](https://twitter.com/bnomei)
+
+## Commercial Usage
+
+> <br>
+> <b>Support open source!</b><br><br>
+> This schema file is free but if you use it in a commercial project please consider to sponsor me or make a donation.<br>
+> If my work helped you to make some cash it seems fair to me that I might get a little reward as well, right?<br><br>
+> Be kind. Share a little. Thanks.<br><br>
+> &dash; Bruno<br>
+> &nbsp;
+
+| M | O | N | E | Y |
+|---|----|---|---|---|
+| [Github sponsor](https://github.com/sponsors/bnomei) | [Patreon](https://patreon.com/bnomei) | [Buy Me a Coffee](https://buymeacoff.ee/bnomei) | [Paypal dontation](https://www.paypal.me/bnomei/15) | [Hire me](mailto:b@bnomei.com?subject=Kirby) |
+
+## Install
 
 ### Schemastore (not yet)
 
-Ideally the validate of this repo would be available from the [Schemastore](https://www.schemastore.org/json/) and it would be almost zero configutation in most IDEs. But that is something the Kirby 3 CMS team should do eventually, not me. Let's focus on getting the validate done first.
+Ideally the schema of this repo would be available from the [Schemastore](https://www.schemastore.org/json/) and it would be almost zero configuration in most IDEs. But that is something the Kirby 3 CMS team should do eventually, not me.
 
 ### Manual IDE configuration
 
@@ -30,13 +48,37 @@ Clone this repo to your local machine. Open the IDE settings and search for `JSO
 
 For testing I mapped it to my `site/blueprints` folder.
 
-#### Enforce Schema for a file
+### Blueprint detection
+
+Since Kirby reuses some types like `file`, `info`, `pages` in fields and sections the schema can not always determine which blueprint you are working on with absolute certainty. For now I introduced a `blueprint` property to solve this. Use it in your `file`, `page`, `user` and `site` blueprints.  
+
+```diff
++ blueprint: site
+
+title: My Site Blueprint
+
+fields:
+  text:
+    type: text
+```
+
+```diff
++ blueprint: page
+
+title: My Page Blueprint
+
+fields:
+  text:
+    type: text
+```
+
+### Enforcing a Schema for a single file
 
 You can enforce a certain validate in adding a special header comment. Which will most probably be needed even with Schemastore setup since Kirby uses plain `*.yml` extension for blueprints and not something like `*.kirby.yml`.
 
 **site/blueprints/pages/default.yml**
-```yaml
-# yaml-language-server: $validate=https://getkirby.com/validate/blueprints.validate.json
+```diff
++ # yaml-language-server: $validate=https://getkirby.com/validate/blueprints.validate.json
 
 title: Default Page Blueprint
 
@@ -45,10 +87,12 @@ fields:
     type: text
 ```
 
-## Roadmap
+## Disclaimer
 
-I created the basic structure and validation for the four blueprint types, added the wrappers and all sections but only 2 of the fields. That was around 1500 lines and I got a bit bored. I will continue this later. Feel free to PR definitions of missing fields in the meantime but watch out for any open PRs before you start working on one.
+This plugin is provided "as is" with no guarantee. Use it at your own risk and always test it yourself before using it in a production environment. If you find any issues, please [create a new issue](https://github.com/bnomei/kirby3-schema/issues/new).
 
-we “just” need to link all props (`$defs/fields`) and add some missing prop definitions (`$defs/field-properties`).
+## License
 
+[MIT](https://opensource.org/licenses/MIT)
 
+It is discouraged to use this plugin in any project that promotes racism, sexism, homophobia, animal abuse, violence or any other form of hate speech.
