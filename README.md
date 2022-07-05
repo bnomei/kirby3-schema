@@ -76,7 +76,7 @@ fields:
 
 ### Enforcing a Schema for a single file
 
-You can enforce a certain validate in adding a special header comment. Which will most probably be needed even with Schemastore setup since Kirby uses plain `*.yml` extension for blueprints and not something like `*.kirby.yml`.
+You can enforce a certain schema in adding a special header comment. Which will most probably be needed even with Schemastore setup since Kirby uses plain `*.yml` extension for blueprints and not something like `*.kirby.yml`.
 
 **site/blueprints/pages/default.yml**
 ```diff
