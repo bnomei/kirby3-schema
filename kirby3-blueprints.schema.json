@@ -1223,6 +1223,11 @@
               "blocks"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -1283,6 +1288,11 @@
           "type": {
             "enum": [
               "checkboxes"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -1348,6 +1358,11 @@
           "type": {
             "enum": [
               "date"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -1443,6 +1458,11 @@
               "email"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -1516,6 +1536,11 @@
           "type": {
             "enum": [
               "files"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -1602,6 +1627,11 @@
               "gap"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -1622,6 +1652,11 @@
           "type": {
             "enum": [
               "headline"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -1672,6 +1707,11 @@
               "info"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -1707,6 +1747,11 @@
               "layout"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -1733,6 +1778,11 @@
               "line"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           }
@@ -1747,6 +1797,11 @@
           "type": {
             "enum": [
               "list"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -1808,6 +1863,11 @@
           "type": {
             "enum": [
               "multiselect"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -1888,6 +1948,11 @@
               "number"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -1953,6 +2018,11 @@
           "type": {
             "enum": [
               "pages"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -2036,6 +2106,11 @@
               "radio"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -2093,6 +2168,11 @@
           "type": {
             "enum": [
               "range"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -2163,6 +2243,11 @@
               "select"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -2219,6 +2304,11 @@
           "type": {
             "enum": [
               "slug"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -2309,6 +2399,11 @@
               "structure"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -2382,6 +2477,11 @@
           "type": {
             "enum": [
               "tags"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -2459,6 +2559,11 @@
               "tel"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -2525,6 +2630,11 @@
           "type": {
             "enum": [
               "text"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -2601,6 +2711,11 @@
           "type": {
             "enum": [
               "textarea"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -2686,6 +2801,11 @@
               "time"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -2763,6 +2883,11 @@
               "toggle"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
@@ -2834,6 +2959,11 @@
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
           },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
           "api": {
             "$ref": "#/$defs/field-properties/@api"
           },
@@ -2896,6 +3026,11 @@
           "type": {
             "enum": [
               "url"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -2965,6 +3100,11 @@
           "type": {
             "enum": [
               "users"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -3043,6 +3183,11 @@
           "type": {
             "enum": [
               "writer"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
             ]
           },
           "extends": {
@@ -3132,6 +3277,11 @@
               "files"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "section"
+            ]
+          },
           "empty": {
             "$ref": "#/$defs/field-properties/@empty"
           },
@@ -3212,6 +3362,11 @@
               "info"
             ]
           },
+          "blueprint": {
+            "enum": [
+              "section"
+            ]
+          },
           "headline": {
             "$ref": "#/$defs/field-properties/@headline"
           },
@@ -3237,6 +3392,11 @@
           "type": {
             "enum": [
               "pages"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "section"
             ]
           },
           "create": {
@@ -3326,6 +3486,11 @@
           "type": {
             "enum": [
               "stats"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "section"
             ]
           },
           "headline": {
