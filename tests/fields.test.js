@@ -56,6 +56,10 @@ test('number', () => {
     expect(validate('./tests/fixtures/fields/number.yml')).toBeTruthy();
 });
 
+test('object', () => {
+    expect(validate('./tests/fixtures/fields/object.yml')).toBeTruthy();
+});
+
 test('pages', () => {
     expect(validate('./tests/fixtures/fields/pages.yml')).toBeTruthy();
 });

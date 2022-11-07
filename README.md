@@ -53,7 +53,7 @@ For testing I mapped it to my `site/blueprints` folder.
 
 ### Blueprint detection
 
-Since Kirby reuses some types like `file`, `info`, `pages` in fields and sections the schema can not always determine which blueprint you are working on with absolute certainty. For now I introduced a `blueprint` property to solve this. Use it in your `file`, `page`, `user` and `site` blueprints.  
+Since Kirby reuses some types like `file`, `info`, `pages` in fields and sections the schema can not always determine which blueprint you are working on with absolute certainty. For now, I introduced a `blueprint` property to solve this. Use it in your `file`, `page`, `user` and `site` blueprints.  
 
 ```diff
 + blueprint: site
