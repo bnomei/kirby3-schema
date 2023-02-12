@@ -350,7 +350,7 @@
     "stringOrLabelAndText": {
       "oneOf": [
         {
-          "$ref": "#/$defs/nonEmptyString"
+          "$ref": "#/$defs/booleanOrString"
         },
         {
           "type": "object",
@@ -440,6 +440,9 @@
       "properties": {
         "label": {
           "$ref": "#/$defs/nonEmptyString"
+        },
+        "icon": {
+          "$ref": "#/$defs/blueprint-properties/@icon"
         },
         "fields": {
           "$ref": "#/$defs/wrappers/fields"
@@ -1945,6 +1948,9 @@
           },
           "extends": {
             "$ref": "#/$defs/field-properties/@extends"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
           },
           "layouts": {
             "$ref": "#/$defs/stringArrayUnique"
