@@ -512,7 +512,7 @@
             "$ref": "#/$defs/nonEmptyString"
           },
           "icon": {
-            "$ref": "#/$defs/nonEmptyString"
+            "$ref": "#/$defs/field-properties/@icon"
           }
         }
       },
@@ -972,11 +972,23 @@
           {
             "type": "object",
             "properties": {
-              "ratio": {
+              "back": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "color": {
                 "$ref": "#/$defs/nonEmptyString"
               },
               "cover": {
                 "type": "boolean"
+              },
+              "icon": {
+                "$ref": "#/$defs/field-properties/@icon"
+              },
+              "ratio": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "query": {
+                "$ref": "#/$defs/nonEmptyString"
               }
             }
           }
