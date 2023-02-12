@@ -967,7 +967,7 @@
       "@image": {
         "oneOf": [
           {
-            "$ref": "#/$defs/nonEmptyString"
+            "$ref": "#/$defs/booleanOrString"
           },
           {
             "type": "object",
