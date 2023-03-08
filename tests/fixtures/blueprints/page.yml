@@ -25,5 +25,8 @@ sections:
     type: fields
     fields:
       text:
-        label: Tex
+        label:
+          en: Localized Text
+          de: Übersetzter Text
+          fr: Texte localisé
         type: text

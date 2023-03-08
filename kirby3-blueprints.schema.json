@@ -253,7 +253,7 @@
           ]
         },
         "label": {
-          "$ref": "#/$defs/nonEmptyString"
+          "$ref": "#/$defs/field-properties/@label"
         },
         "fieldsets": {
           "type": "array",
@@ -356,7 +356,7 @@
           "type": "object",
           "properties": {
             "label": {
-              "$ref": "#/$defs/nonEmptyString"
+              "$ref": "#/$defs/field-properties/@label"
             },
             "text": {
               "$ref": "#/$defs/nonEmptyString"
@@ -382,7 +382,7 @@
       "type": "object",
       "properties": {
         "label": {
-          "$ref": "#/$defs/nonEmptyString"
+          "$ref": "#/$defs/field-properties/@label"
         }
       }
     },
@@ -439,7 +439,7 @@
       "type": "object",
       "properties": {
         "label": {
-          "$ref": "#/$defs/nonEmptyString"
+          "$ref": "#/$defs/field-properties/@label"
         },
         "icon": {
           "$ref": "#/$defs/blueprint-properties/@icon"
@@ -1191,7 +1191,7 @@
         "description": "Optional info text setup"
       },
       "@label": {
-        "$ref": "#/$defs/nonEmptyString",
+        "$ref": "#/$defs/stringOrTranslated",
         "description": "label is the new official replacement for headline"
       },
       "@layout": {
