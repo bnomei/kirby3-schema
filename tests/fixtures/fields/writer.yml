@@ -4,5 +4,6 @@ marks:
   - bold
   - italic
   - strike
+  - email
 nodes:
   - paragraph

@@ -151,7 +151,8 @@
         "underline",
         "strike",
         "code",
-        "link"
+        "link",
+        "email"
       ]
     },
     "nodes": {
