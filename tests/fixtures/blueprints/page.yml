@@ -29,4 +29,8 @@ sections:
           en: Localized Text
           de: Übersetzter Text
           fr: Texte localisé
+        help:
+          en: Localized Text
+          de: Übersetzter Text
+          fr: Texte localisé
         type: text

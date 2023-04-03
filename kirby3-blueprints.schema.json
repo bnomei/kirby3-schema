@@ -962,7 +962,7 @@
         "$ref": "#/$defs/nonEmptyString"
       },
       "@help": {
-        "$ref": "#/$defs/nonEmptyString",
+        "$ref": "#/$defs/stringOrTranslated",
         "description": "Optional help text below the field"
       },
       "@image": {
