@@ -3654,6 +3654,9 @@
           "parent": {
             "$ref": "#/$defs/field-properties/@parent"
           },
+          "query": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
           "size": {
             "$ref": "#/$defs/field-properties/@size",
             "default": "auto"
