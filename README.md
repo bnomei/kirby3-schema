@@ -1,11 +1,11 @@
-# Kirby 3 Schema
+# Kirby 3 and 4 Schema
 
 ![Release](https://flat.badgen.net/github/release/bnomei/kirby3-schema?color=ae81ff)
 ![Downloads](https://flat.badgen.net/github/assets-dl/bnomei/kirby3-schema?color=272822)
 ![Checks](https://flat.badgen.net//github/checks/bnomei/kirby3-schema)
 [![Twitter](https://flat.badgen.net/badge/twitter/bnomei?color=66d9ef)](https://twitter.com/bnomei)
 
-JSON Schema file for Kirby 3 blueprints
+JSON Schema file for Kirby 3 and 4 blueprints
 
 ## Commercial Usage
 
@@ -35,13 +35,13 @@ You will need the [Red Hat VS Code YAML Extension](https://github.com/redhat-dev
 
 ```yaml
   "yaml.schemas": {
-    "/path/to/your/schema/kirby3-blueprints.schema.json": "site/blueprints/**/*.yml"
+    "/path/to/your/schema/kirby4-blueprints.schema.json": "site/blueprints/**/*.yml"
   }
 ```
 
 This will automatically use the schema for all blueprint files.
 
-The extension prepends `/` on the path so its `/~/YOUR_FOLDER/kirby3-schema/kirby3-blueprints.schema.json`.
+The extension prepends `/` on the path so its `/~/YOUR_FOLDER/kirby3-schema/kirby4-blueprints.schema.json`.
 
 > thanks @tobimori and @iskrisis
 
