@@ -475,6 +475,29 @@
       "@title": {
         "$ref": "#/$defs/stringOrTranslated"
       },
+      "@create": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "$ref": "#/$defs/stringOrLabelAndText"
+          },
+          "fields": {
+            "$ref": "#/$defs/stringArrayUnique"
+          },
+          "redirect": {
+            "type": "boolean",
+            "default": true
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "unlisted",
+              "listed"
+            ],
+            "default": "draft"
+          }
+        }
+      },
       "@description": {
         "$ref": "#/$defs/stringOrTranslated"
       },
@@ -698,6 +721,9 @@
           },
           "title": {
             "$ref": "#/$defs/blueprint-properties/@title"
+          },
+          "create": {
+            "$ref": "#/$defs/blueprint-properties/@create"
           },
           "num": {
             "$ref": "#/$defs/blueprint-properties/@num"
