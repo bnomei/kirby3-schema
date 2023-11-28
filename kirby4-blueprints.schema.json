@@ -1,0 +1,3954 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://getkirby.com/schema/blueprints.schema.json",
+  "title": "JSON schema for Kirby 3 CMS blueprint files",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/fields/blocks"
+    },
+    {
+      "$ref": "#/$defs/fields/checkboxes"
+    },
+    {
+      "$ref": "#/$defs/fields/date"
+    },
+    {
+      "$ref": "#/$defs/fields/email"
+    },
+    {
+      "$ref": "#/$defs/fields/files"
+    },
+    {
+      "$ref": "#/$defs/fields/gap"
+    },
+    {
+      "$ref": "#/$defs/fields/headline"
+    },
+    {
+      "$ref": "#/$defs/fields/hidden"
+    },
+    {
+      "$ref": "#/$defs/fields/info"
+    },
+    {
+      "$ref": "#/$defs/fields/layout"
+    },
+    {
+      "$ref": "#/$defs/fields/line"
+    },
+    {
+      "$ref": "#/$defs/fields/list"
+    },
+    {
+      "$ref": "#/$defs/fields/multiselect"
+    },
+    {
+      "$ref": "#/$defs/fields/number"
+    },
+    {
+      "$ref": "#/$defs/fields/object"
+    },
+    {
+      "$ref": "#/$defs/fields/pages"
+    },
+    {
+      "$ref": "#/$defs/fields/radio"
+    },
+    {
+      "$ref": "#/$defs/fields/range"
+    },
+    {
+      "$ref": "#/$defs/fields/select"
+    },
+    {
+      "$ref": "#/$defs/fields/slug"
+    },
+    {
+      "$ref": "#/$defs/fields/structure"
+    },
+    {
+      "$ref": "#/$defs/fields/tags"
+    },
+    {
+      "$ref": "#/$defs/fields/tel"
+    },
+    {
+      "$ref": "#/$defs/fields/text"
+    },
+    {
+      "$ref": "#/$defs/fields/textarea"
+    },
+    {
+      "$ref": "#/$defs/fields/time"
+    },
+    {
+      "$ref": "#/$defs/fields/toggle"
+    },
+    {
+      "$ref": "#/$defs/fields/toggles"
+    },
+    {
+      "$ref": "#/$defs/fields/url"
+    },
+    {
+      "$ref": "#/$defs/fields/users"
+    },
+    {
+      "$ref": "#/$defs/fields/writer"
+    },
+    {
+      "$ref": "#/$defs/sections/info"
+    },
+    {
+      "$ref": "#/$defs/sections/fields"
+    },
+    {
+      "$ref": "#/$defs/sections/files"
+    },
+    {
+      "$ref": "#/$defs/sections/pages"
+    },
+    {
+      "$ref": "#/$defs/sections/stats"
+    },
+    {
+      "$ref": "#/$defs/blueprints/file"
+    },
+    {
+      "$ref": "#/$defs/blueprints/page"
+    },
+    {
+      "$ref": "#/$defs/blueprints/site"
+    },
+    {
+      "$ref": "#/$defs/blueprints/user"
+    }
+  ],
+  "$defs": {
+    "arrayOrBooleanOrNumberOrObjectOrString": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "array"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "marks": {
+      "enum": [
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "code",
+        "link",
+        "email"
+      ]
+    },
+    "nodes": {
+      "enum": [
+        "paragraph",
+        "heading",
+        "bulletList",
+        "orderedList"
+      ]
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "notRequiredNonEmptyString": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stringArrayUnique": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      }
+    },
+    "queryObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "fetch": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "text": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "value": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "textValuePair": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "value": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "fieldsetsItem": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "$ref": "#/$defs/nonEmptyString"
+                  },
+                  "content": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "fieldsetsGroup": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "group"
+          ]
+        },
+        "label": {
+          "$ref": "#/$defs/field-properties/@label"
+        },
+        "fieldsets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fieldsetsItem"
+          }
+        },
+        "open": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "objectWithStringValues": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "stringOrStringArrayUnique": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        {
+          "$ref": "#/$defs/stringArrayUnique"
+        }
+      ]
+    },
+    "booleanOrString": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "booleanOrObject": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "booleanOrStringArrayUnique": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/$defs/stringArrayUnique"
+        }
+      ]
+    },
+    "stringOrNumber": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "translated": {
+      "type": "object",
+      "patternProperties": {
+        "[a-z]{2}": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          ]
+        }
+      }
+    },
+    "stringOrTranslated": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        {
+          "$ref": "#/$defs/translated"
+        }
+      ]
+    },
+    "stringOrLabelAndText": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/booleanOrString"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/field-properties/@label"
+            },
+            "text": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        }
+      ]
+    },
+    "numberInPixel": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "in px"
+    },
+    "numberInBytes": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "in bytes"
+    },
+    "fraction": {
+      "$ref": "#/$defs/nonEmptyString"
+    },
+    "field": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/field-properties/@label"
+        }
+      }
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/field-properties/@label"
+        },
+        "value": {
+          "$ref": "#/$defs/field-properties/@value"
+        },
+        "info": {
+          "$ref": "#/$defs/field-properties/@info"
+        },
+        "link": {
+          "$ref": "#/$defs/field-properties/@linkUrl"
+        },
+        "theme": {
+          "$ref": "#/$defs/field-properties/@theme"
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "properties": {
+        "sec-label": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "column": {
+      "properties": {
+        "width": {
+          "$ref": "#/$defs/fraction"
+        },
+        "sticky": {
+          "type": "boolean",
+          "default": false
+        },
+        "fields": {
+          "$ref": "#/$defs/wrappers/fields"
+        },
+        "sections": {
+          "$ref": "#/$defs/wrappers/sections"
+        }
+      },
+      "required": [
+        "width"
+      ]
+    },
+    "tab": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/field-properties/@label"
+        },
+        "icon": {
+          "$ref": "#/$defs/blueprint-properties/@icon"
+        },
+        "fields": {
+          "$ref": "#/$defs/wrappers/fields"
+        },
+        "sections": {
+          "$ref": "#/$defs/wrappers/sections"
+        },
+        "columns": {
+          "$ref": "#/$defs/wrappers/columns"
+        }
+      },
+      "patternProperties": {
+        ".*": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/wrappers/fields"
+            },
+            {
+              "$ref": "#/$defs/wrappers/sections"
+            },
+            {
+              "$ref": "#/$defs/wrappers/columns"
+            }
+          ]
+        }
+      }
+    },
+    "blueprint-properties": {
+      "@title": {
+        "$ref": "#/$defs/stringOrTranslated"
+      },
+      "@description": {
+        "$ref": "#/$defs/stringOrTranslated"
+      },
+      "@num": {
+        "$ref": "#/$defs/nonEmptyString",
+        "default": "zero"
+      },
+      "@reports": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/$defs/report"
+        }
+      },
+      "@status": {
+        "type": "object",
+        "properties": {
+          "draft": {
+            "$ref": "#/$defs/stringOrLabelAndText"
+          },
+          "unlisted": {
+            "$ref": "#/$defs/stringOrLabelAndText"
+          },
+          "listed": {
+            "$ref": "#/$defs/stringOrLabelAndText"
+          }
+        }
+      },
+      "@icon": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@image": {
+        "type": "object",
+        "properties": {
+          "back": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          }
+        }
+      },
+      "@home": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@preset": {
+        "enum": [
+          "files",
+          "page",
+          "pages"
+        ]
+      },
+      "@options": {
+        "type": "object",
+        "properties": {
+          "changeSlug": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "changeStatus": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "changeTemplate": {
+            "$ref": "#/$defs/booleanOrStringArrayUnique"
+          },
+          "changeTitle": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "delete": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "duplicate": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "preview": {
+            "$ref": "#/$defs/booleanOrString"
+          },
+          "read": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "update": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "changeName": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "replace": {
+            "$ref": "#/$defs/booleanOrObject"
+          }
+        }
+      },
+      "@permissions": {
+        "type": "object",
+        "properties": {
+          "access": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "files": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "pages": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "site": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "users": {
+            "$ref": "#/$defs/booleanOrObject"
+          },
+          "user": {
+            "$ref": "#/$defs/booleanOrObject"
+          }
+        }
+      },
+      "@navigation": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/$defs/stringOrStringArrayUnique"
+          },
+          "template": {
+            "$ref": "#/$defs/stringOrStringArrayUnique"
+          },
+          "sortBy": {
+            "$ref": "#/$defs/stringOrStringArrayUnique"
+          }
+        }
+      }
+    },
+    "blueprints": {
+      "file": {
+        "type": "object",
+        "required": [
+          "blueprint"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "blueprint": {
+            "enum": [
+              "file"
+            ]
+          },
+          "title": {
+            "$ref": "#/$defs/blueprint-properties/@title"
+          },
+          "accept": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "extension": {
+                    "$ref": "#/$defs/stringOrStringArrayUnique"
+                  },
+                  "mime ": {
+                    "$ref": "#/$defs/stringOrStringArrayUnique"
+                  },
+                  "maxheight": {
+                    "$ref": "#/$defs/numberInPixel"
+                  },
+                  "maxsize": {
+                    "$ref": "#/$defs/numberInBytes"
+                  },
+                  "maxwidth": {
+                    "$ref": "#/$defs/numberInPixel"
+                  },
+                  "minheight": {
+                    "$ref": "#/$defs/numberInPixel"
+                  },
+                  "minsize": {
+                    "$ref": "#/$defs/numberInBytes"
+                  },
+                  "minwidth": {
+                    "$ref": "#/$defs/numberInPixel"
+                  },
+                  "orientation": {
+                    "$ref": "#/$defs/nonEmptyString"
+                  },
+                  "type": {
+                    "$ref": "#/$defs/stringOrStringArrayUnique"
+                  }
+                }
+              }
+            ]
+          },
+          "image": {
+            "$ref": "#/$defs/blueprint-properties/@image"
+          },
+          "options": {
+            "$ref": "#/$defs/blueprint-properties/@options"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "sections": {
+            "$ref": "#/$defs/wrappers/sections"
+          },
+          "columns": {
+            "$ref": "#/$defs/wrappers/columns"
+          },
+          "tabs": {
+            "$ref": "#/$defs/wrappers/tabs"
+          }
+        }
+      },
+      "page": {
+        "type": "object",
+        "required": [
+          "blueprint"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "blueprint": {
+            "enum": [
+              "page"
+            ]
+          },
+          "preset": {
+            "$ref": "#/$defs/blueprint-properties/@preset"
+          },
+          "title": {
+            "$ref": "#/$defs/blueprint-properties/@title"
+          },
+          "num": {
+            "$ref": "#/$defs/blueprint-properties/@num"
+          },
+          "status": {
+            "$ref": "#/$defs/blueprint-properties/@status"
+          },
+          "icon": {
+            "$ref": "#/$defs/blueprint-properties/@icon"
+          },
+          "image": {
+            "$ref": "#/$defs/blueprint-properties/@image"
+          },
+          "options": {
+            "$ref": "#/$defs/blueprint-properties/@options"
+          },
+          "navigation": {
+            "$ref": "#/$defs/blueprint-properties/@navigation"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "sections": {
+            "$ref": "#/$defs/wrappers/sections"
+          },
+          "columns": {
+            "$ref": "#/$defs/wrappers/columns"
+          },
+          "tabs": {
+            "$ref": "#/$defs/wrappers/tabs"
+          }
+        }
+      },
+      "site": {
+        "type": "object",
+        "required": [
+          "blueprint"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "blueprint": {
+            "enum": [
+              "site"
+            ]
+          },
+          "title": {
+            "$ref": "#/$defs/blueprint-properties/@title"
+          },
+          "options": {
+            "$ref": "#/$defs/blueprint-properties/@options"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "sections": {
+            "$ref": "#/$defs/wrappers/sections"
+          },
+          "columns": {
+            "$ref": "#/$defs/wrappers/columns"
+          },
+          "tabs": {
+            "$ref": "#/$defs/wrappers/tabs"
+          }
+        }
+      },
+      "user": {
+        "type": "object",
+        "required": [
+          "blueprint"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "blueprint": {
+            "enum": [
+              "user"
+            ]
+          },
+          "title": {
+            "$ref": "#/$defs/stringOrTranslated"
+          },
+          "description": {
+            "$ref": "#/$defs/stringOrTranslated"
+          },
+          "options": {
+            "$ref": "#/$defs/blueprint-properties/@options"
+          },
+          "home": {
+            "$ref": "#/$defs/blueprint-properties/@home"
+          },
+          "image": {
+            "$ref": "#/$defs/blueprint-properties/@image"
+          },
+          "permissions": {
+            "$ref": "#/$defs/blueprint-properties/@permissions"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "sections": {
+            "$ref": "#/$defs/wrappers/sections"
+          },
+          "columns": {
+            "$ref": "#/$defs/wrappers/columns"
+          },
+          "tabs": {
+            "$ref": "#/$defs/wrappers/tabs"
+          }
+        }
+      }
+    },
+    "field-properties": {
+      "@after": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@api": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/booleanOrString"
+          },
+          {
+            "$ref": "#/$defs/queryObject"
+          }
+        ]
+      },
+      "@autocomplete": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@align": {
+        "enum": [
+          "left",
+          "center",
+          "right"
+        ],
+        "default": "left"
+      },
+      "@autofocus": {
+        "type": "boolean"
+      },
+      "@before": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@buttons": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "enum": [
+                "headlines",
+                "italic",
+                "bold",
+                "link",
+                "email",
+                "file",
+                "code",
+                "ul",
+                "ol",
+                "|"
+              ]
+            }
+          }
+        ]
+      },
+      "@columns": {
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "$ref": "#/$defs/field-properties/@label"
+              },
+              "align": {
+                "$ref": "#/$defs/field-properties/@align"
+              },
+              "width": {
+                "$ref": "#/$defs/fraction"
+              },
+              "value": {
+                "$ref": "#/$defs/field-properties/@value"
+              }
+            }
+          }
+        }
+      },
+      "@converter": {
+        "enum": [
+          "lower",
+          "upper",
+          "ucfirst",
+          "slug"
+        ]
+      },
+      "@counter": {
+        "type": "boolean"
+      },
+      "@create": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          {
+            "$ref": "#/$defs/booleanOrStringArrayUnique"
+          }
+        ]
+      },
+      "@default": {
+        "$ref": "#/$defs/arrayOrBooleanOrNumberOrObjectOrString",
+        "description": "Default value for the field, which will be used when a page/file/user is created"
+      },
+      "@disabled": {
+        "type": "boolean"
+      },
+      "@empty": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Sets the text for the empty state box"
+      },
+      "@extends": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@fieldsets": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/stringArrayUnique"
+          },
+          {
+            "type": "object",
+            "patternProperties": {
+              ".*": {
+                "$ref": "#/$defs/fieldsetsGroup"
+              }
+            }
+          }
+        ]
+      },
+      "@files": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "query": {
+                "$ref": "#/$defs/field-properties/@query"
+              },
+              "image": {
+                "$ref": "#/$defs/field-properties/@image"
+              }
+            }
+          }
+        ]
+      },
+      "@flip": {
+        "type": "boolean",
+        "description": "Enables/disables reverse sorting"
+      },
+      "@headline": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@help": {
+        "$ref": "#/$defs/stringOrTranslated",
+        "description": "Optional help text below the field"
+      },
+      "@image": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/booleanOrString"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "back": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "color": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "cover": {
+                "type": "boolean"
+              },
+              "icon": {
+                "$ref": "#/$defs/field-properties/@icon"
+              },
+              "ratio": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "query": {
+                "$ref": "#/$defs/nonEmptyString"
+              }
+            }
+          }
+        ],
+        "description": "Image options to control the source and look of file previews"
+      },
+      "@icon": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          {
+            "enum": [
+              "account",
+              "add",
+              "alert",
+              "anchor",
+              "angle-down",
+              "angle-left",
+              "angle-right",
+              "angle-up",
+              "archive",
+              "attachment",
+              "audio",
+              "badge",
+              "bars",
+              "bell",
+              "blank",
+              "bold",
+              "bolt",
+              "book",
+              "bookmark",
+              "box",
+              "bug",
+              "brush",
+              "calendar",
+              "cancel",
+              "cancel-small",
+              "car",
+              "cart",
+              "chart",
+              "chat",
+              "check",
+              "checklist",
+              "circle",
+              "circle-filled",
+              "circle-filled",
+              "circle-half",
+              "circle-nested",
+              "circle-outline",
+              "clear",
+              "clock",
+              "code",
+              "cog",
+              "collapse",
+              "copy",
+              "credit-card",
+              "crop",
+              "dashboard",
+              "discord",
+              "discount",
+              "display",
+              "divider",
+              "document",
+              "dots",
+              "download",
+              "draft",
+              "edit",
+              "editv",
+              "email",
+              "expand",
+              "facebook",
+              "file",
+              "file-audio",
+              "file-code",
+              "file-document",
+              "file-image",
+              "file-spreadsheet",
+              "file-text",
+              "file-video",
+              "file-word",
+              "file-zip",
+              "filter",
+              "flag",
+              "folder",
+              "folder-structure",
+              "food",
+              "funnel",
+              "github",
+              "globe",
+              "grid",
+              "grid-bottom",
+              "grid-bottom-left",
+              "grid-bottom-right",
+              "grid-full",
+              "grid-left",
+              "grid-right",
+              "grid-top",
+              "grid-top-left",
+              "grid-top-right",
+              "h1",
+              "h2",
+              "h3",
+              "h4",
+              "h5",
+              "h6",
+              "headline",
+              "heart",
+              "heart-filled",
+              "heart-outline",
+              "hidden",
+              "home",
+              "image",
+              "images",
+              "import",
+              "info",
+              "instagram",
+              "italic",
+              "key",
+              "layers",
+              "linkedin",
+              "list-bullet",
+              "list-numbers",
+              "live",
+              "loader",
+              "lock",
+              "logout",
+              "map",
+              "markdown",
+              "mastodon",
+              "megaphone",
+              "menu",
+              "merge",
+              "mobile",
+              "money",
+              "moon",
+              "open",
+              "order-alpha-asc",
+              "order-alpha-desc",
+              "order-num-asc",
+              "order-num-desc",
+              "page",
+              "palette",
+              "paragraph",
+              "parent",
+              "paypal",
+              "pen",
+              "phone",
+              "pin",
+              "pinterest",
+              "pipette",
+              "plane",
+              "play",
+              "plus",
+              "preview",
+              "print",
+              "protected",
+              "qr-code",
+              "question",
+              "quote",
+              "refresh",
+              "remove",
+              "search",
+              "server",
+              "settings",
+              "share",
+              "shuffle",
+              "sitemap",
+              "smile",
+              "sort",
+              "sparkling",
+              "split",
+              "star",
+              "star-filled",
+              "star-outline",
+              "status-draft",
+              "status-unlisted",
+              "status-listed",
+              "store",
+              "strikethrough",
+              "sun",
+              "subscript",
+              "superscript",
+              "table",
+              "tablet",
+              "tag",
+              "template",
+              "text",
+              "text-center",
+              "text-justify",
+              "text-left",
+              "text-right",
+              "ticket",
+              "tiktok",
+              "title",
+              "toggle-off",
+              "toggle-on",
+              "trash",
+              "underline",
+              "undo",
+              "unlock",
+              "upload",
+              "url",
+              "user",
+              "users",
+              "video",
+              "vimeo",
+              "wand",
+              "whatsapp",
+              "wheelchair",
+              "youtube"
+            ]
+          }
+        ]
+      },
+      "@info": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Optional info text setup"
+      },
+      "@label": {
+        "$ref": "#/$defs/stringOrTranslated",
+        "description": "label is the new official replacement for headline"
+      },
+      "@layout": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Section layout"
+      },
+      "@limit": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "description": "Sets the number of items per page"
+      },
+      "@link": {
+        "type": "boolean"
+      },
+      "@linkUrl": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@marks": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/marks"
+            }
+          }
+        ]
+      },
+      "@max": {
+        "type": "number"
+      },
+      "@maxlength": {
+        "type": "number"
+      },
+      "@min": {
+        "type": "number"
+      },
+      "@minlength": {
+        "type": "number"
+      },
+      "@multiple": {
+        "type": "boolean",
+        "description": "If false, only a single one can be selected"
+      },
+      "@nodes": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/nodes"
+            }
+          }
+        ]
+      },
+      "@options": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/stringOrStringArrayUnique"
+          },
+          {
+            "$ref": "#/$defs/objectWithStringValues"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/objectWithStringValues"
+            }
+          }
+        ]
+      },
+      "@page": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "description": "Sets the default page for the pagination"
+      },
+      "@parent": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Sets the query to a parent to find items for the list"
+      },
+      "@pattern": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "A regular expression, which will be used to validate the input"
+      },
+      "@placeholder": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@query": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          {
+            "$ref": "#/$defs/queryObject"
+          }
+        ]
+      },
+      "@required": {
+        "type": "boolean"
+      },
+      "@search": {
+        "type": "boolean"
+      },
+      "@separator": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "@size": {
+        "enum": [
+          "tiny",
+          "small",
+          "medium",
+          "large",
+          "huge"
+        ],
+        "description": "The size option controls the size of cards"
+      },
+      "@sortBy": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Overwrites manual sorting and sorts by the given field and sorting direction"
+      },
+      "@sort": {
+        "type": "boolean"
+      },
+      "@sortable": {
+        "type": "boolean",
+        "description": "Enables/disables manual sorting"
+      },
+      "@spellcheck": {
+        "type": "boolean"
+      },
+      "@step": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        ]
+      },
+      "@status": {
+        "enum": [
+          "draft",
+          "unlisted",
+          "listed",
+          "published",
+          "all"
+        ]
+      },
+      "@template": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Filters all files by template and also sets the template, which will be used for all uploads"
+      },
+      "@templates": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          {
+            "$ref": "#/$defs/stringArrayUnique"
+          }
+        ]
+      },
+      "@text": {
+        "$ref": "#/$defs/nonEmptyString",
+        "description": "Setup for the main text in the list or cards"
+      },
+      "@theme": {
+        "enum": [
+          "none",
+          "positive",
+          "info",
+          "negative"
+        ]
+      },
+      "@translate": {
+        "type": "boolean"
+      },
+      "@uploads": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/booleanOrString"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "parent": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "template": {
+                "$ref": "#/$defs/nonEmptyString"
+              }
+            }
+          }
+        ]
+      },
+      "@value": {
+        "$ref": "#/$defs/stringOrNumber"
+      },
+      "@when": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          {
+            "$ref": "#/$defs/objectWithStringValues"
+          }
+        ]
+      },
+      "@width": {
+        "enum": [
+          "1/1",
+          "1/2",
+          "1/3",
+          "1/4",
+          "2/3",
+          "3/4"
+        ],
+        "default": "1/1"
+      }
+    },
+    "fields": {
+      "blocks": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "blocks"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "empty": {
+            "$ref": "#/$defs/field-properties/@empty"
+          },
+          "fieldsets": {
+            "$ref": "#/$defs/field-properties/@fieldsets"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "pretty": {
+            "type": "boolean",
+            "default": false
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "checkboxes": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "checkboxes"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "api": {
+            "$ref": "#/$defs/field-properties/@api"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "columns": {
+            "type": "number",
+            "default": 1
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "options": {
+            "$ref": "#/$defs/field-properties/@options"
+          },
+          "query": {
+            "$ref": "#/$defs/field-properties/@query"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "date": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "date"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "calendar": {
+            "type": "boolean",
+            "default": false
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "display": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "format": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "step": {
+            "$ref": "#/$defs/field-properties/@step"
+          },
+          "time": {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "step": {
+                    "$ref": "#/$defs/field-properties/@step"
+                  },
+                  "display": {
+                    "$ref": "#/$defs/nonEmptyString"
+                  }
+                }
+              }
+            ]
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "email": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "email"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autocomplete": {
+            "$ref": "#/$defs/field-properties/@autocomplete",
+            "default": "email"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "maxlength": {
+            "$ref": "#/$defs/field-properties/@maxlength"
+          },
+          "minlength": {
+            "$ref": "#/$defs/field-properties/@minlength"
+          },
+          "pattern": {
+            "$ref": "#/$defs/field-properties/@pattern"
+          },
+          "placeholder": {
+            "$ref": "#/$defs/field-properties/@placeholder"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "spellcheck": {
+            "$ref": "#/$defs/field-properties/@spellcheck",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "files": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "files"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "empty": {
+            "$ref": "#/$defs/field-properties/@empty"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "image": {
+            "$ref": "#/$defs/field-properties/@image"
+          },
+          "info": {
+            "$ref": "#/$defs/field-properties/@info"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "layout": {
+            "$ref": "#/$defs/field-properties/@layout"
+          },
+          "link": {
+            "$ref": "#/$defs/field-properties/@link"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "multiple": {
+            "$ref": "#/$defs/field-properties/@multiple",
+            "default": false
+          },
+          "query": {
+            "$ref": "#/$defs/field-properties/@query"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required"
+          },
+          "search": {
+            "$ref": "#/$defs/field-properties/@search",
+            "default": true
+          },
+          "size": {
+            "$ref": "#/$defs/field-properties/@size",
+            "default": "auto"
+          },
+          "text": {
+            "$ref": "#/$defs/field-properties/@text"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "uploads": {
+            "$ref": "#/$defs/field-properties/@uploads",
+            "default": []
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width"
+          }
+        }
+      },
+      "gap": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "gap"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width"
+          }
+        }
+      },
+      "headline": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "headline"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "numbered": {
+            "type": "boolean"
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "hidden": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "hidden"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          }
+        }
+      },
+      "info": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "info"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "text": {
+            "$ref": "#/$defs/field-properties/@text"
+          },
+          "theme": {
+            "$ref": "#/$defs/field-properties/@theme"
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "layout": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "layout"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "layouts": {
+            "$ref": "#/$defs/stringArrayUnique"
+          },
+          "fieldsets": {
+            "$ref": "#/$defs/field-properties/@fieldsets"
+          },
+          "settings": {
+            "type": "object",
+            "description": "--- TODO ---"
+          }
+        }
+      },
+      "line": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "line"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          }
+        }
+      },
+      "list": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "list"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "marks": {
+            "$ref": "#/$defs/field-properties/@marks"
+          },
+          "placeholder": {
+            "$ref": "#/$defs/field-properties/@placeholder"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "multiselect": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "multiselect"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "api": {
+            "$ref": "#/$defs/field-properties/@api"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "layout": {
+            "$ref": "#/$defs/field-properties/@layout"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "options": {
+            "$ref": "#/$defs/field-properties/@options"
+          },
+          "query": {
+            "$ref": "#/$defs/field-properties/@query"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "search": {
+            "$ref": "#/$defs/field-properties/@search"
+          },
+          "separator": {
+            "$ref": "#/$defs/field-properties/@separator",
+            "default": ","
+          },
+          "sort": {
+            "$ref": "#/$defs/field-properties/@sort",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "number": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "number"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "placeholder": {
+            "$ref": "#/$defs/field-properties/@placeholder"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "step": {
+            "$ref": "#/$defs/field-properties/@step"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "object": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "object"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "empty": {
+            "$ref": "#/$defs/field-properties/@empty"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "pages": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "pages"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "image": {
+            "$ref": "#/$defs/field-properties/@image"
+          },
+          "info": {
+            "$ref": "#/$defs/field-properties/@info"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "layout": {
+            "$ref": "#/$defs/field-properties/@layout"
+          },
+          "link": {
+            "$ref": "#/$defs/field-properties/@link"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "multiple": {
+            "$ref": "#/$defs/field-properties/@multiple"
+          },
+          "query": {
+            "$ref": "#/$defs/field-properties/@query"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "search": {
+            "$ref": "#/$defs/field-properties/@search",
+            "default": true
+          },
+          "size": {
+            "$ref": "#/$defs/field-properties/@size"
+          },
+          "subpages": {
+            "type": "boolean",
+            "default": true
+          },
+          "text": {
+            "$ref": "#/$defs/field-properties/@text"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "radio": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "radio"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "api": {
+            "$ref": "#/$defs/field-properties/@api"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "columns": {
+            "type": "number",
+            "default": 1
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "options": {
+            "$ref": "#/$defs/field-properties/@options"
+          },
+          "query": {
+            "$ref": "#/$defs/field-properties/@query"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "range": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "range"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "step": {
+            "$ref": "#/$defs/field-properties/@step"
+          },
+          "tooltip": {
+            "type": "boolean",
+            "default": true
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "select": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "select"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "api": {
+            "$ref": "#/$defs/field-properties/@api"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "options": {
+            "$ref": "#/$defs/field-properties/@options"
+          },
+          "query": {
+            "$ref": "#/$defs/field-properties/@query"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "slug": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "slug"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "allow": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "maxlength": {
+            "$ref": "#/$defs/field-properties/@maxlength"
+          },
+          "minlength": {
+            "$ref": "#/$defs/field-properties/@minlength"
+          },
+          "path": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "pattern": {
+            "$ref": "#/$defs/field-properties/@pattern"
+          },
+          "placeholder": {
+            "$ref": "#/$defs/field-properties/@placeholder"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "sync": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          },
+          "wizard": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "field": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "text": {
+                "$ref": "#/$defs/nonEmptyString"
+              }
+            }
+          }
+        }
+      },
+      "structure": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "structure"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "columns": {
+            "$ref": "#/$defs/field-properties/@columns"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "duplicate": {
+            "type": "boolean",
+            "default": true
+          },
+          "empty": {
+            "$ref": "#/$defs/field-properties/@empty"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "limit": {
+            "$ref": "#/$defs/field-properties/@limit"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "prepend": {
+            "type": "boolean",
+            "default": true
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "sortBy": {
+            "$ref": "#/$defs/field-properties/@sortBy"
+          },
+          "sortable": {
+            "$ref": "#/$defs/field-properties/@sortable"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "tags": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "tags"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "accept": {
+            "$ref": "#/$defs/nonEmptyString",
+            "default": "all"
+          },
+          "api": {
+            "$ref": "#/$defs/field-properties/@api"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "layout": {
+            "$ref": "#/$defs/field-properties/@layout"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "options": {
+            "$ref": "#/$defs/field-properties/@options"
+          },
+          "query": {
+            "$ref": "#/$defs/field-properties/@query"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "separator": {
+            "$ref": "#/$defs/field-properties/@separator",
+            "default": ","
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "tel": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "tel"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autocomplete": {
+            "$ref": "#/$defs/field-properties/@autocomplete"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "maxlength": {
+            "$ref": "#/$defs/field-properties/@maxlength"
+          },
+          "minlength": {
+            "$ref": "#/$defs/field-properties/@minlength"
+          },
+          "pattern": {
+            "$ref": "#/$defs/field-properties/@pattern"
+          },
+          "placeholder": {
+            "$ref": "#/$defs/field-properties/@placeholder"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width"
+          }
+        }
+      },
+      "text": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "text"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "converter": {
+            "$ref": "#/$defs/field-properties/@converter"
+          },
+          "counter": {
+            "$ref": "#/$defs/field-properties/@counter",
+            "default": true
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "maxlength": {
+            "$ref": "#/$defs/field-properties/@maxlength"
+          },
+          "minlength": {
+            "$ref": "#/$defs/field-properties/@minlength"
+          },
+          "pattern": {
+            "$ref": "#/$defs/field-properties/@pattern"
+          },
+          "placeholder": {
+            "$ref": "#/$defs/field-properties/@placeholder"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required"
+          },
+          "spellcheck": {
+            "$ref": "#/$defs/field-properties/@spellcheck",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width"
+          }
+        }
+      },
+      "textarea": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "textarea"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "buttons": {
+            "$ref": "#/$defs/field-properties/@buttons"
+          },
+          "counter": {
+            "$ref": "#/$defs/field-properties/@counter",
+            "default": true
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "files": {
+            "$ref": "#/$defs/field-properties/@files"
+          },
+          "font": {
+            "enum": [
+              "sans",
+              "monospace"
+            ],
+            "default": "sans"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "maxlength": {
+            "$ref": "#/$defs/field-properties/@maxlength"
+          },
+          "minlength": {
+            "$ref": "#/$defs/field-properties/@minlength"
+          },
+          "placeholder": {
+            "$ref": "#/$defs/field-properties/@placeholder"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required"
+          },
+          "size": {
+            "$ref": "#/$defs/field-properties/@size"
+          },
+          "spellcheck": {
+            "$ref": "#/$defs/field-properties/@spellcheck",
+            "default": false
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "uploads": {
+            "$ref": "#/$defs/field-properties/@uploads"
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width"
+          }
+        }
+      },
+      "time": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "time"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "display": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "format": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "notation": {
+            "enum": [
+              12,
+              24
+            ],
+            "default": 24
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "step": {
+            "$ref": "#/$defs/field-properties/@step"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "toggle": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "toggle"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "text": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/stringArrayUnique"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/translated"
+                }
+              }
+            ]
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "toggles": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "toggles"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "api": {
+            "$ref": "#/$defs/field-properties/@api"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "grow": {
+            "type": "boolean",
+            "default": true
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "labels": {
+            "type": "boolean",
+            "default": true
+          },
+          "options": {
+            "$ref": "#/$defs/field-properties/@options"
+          },
+          "query": {
+            "$ref": "#/$defs/field-properties/@query"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required",
+            "default": false
+          },
+          "reset": {
+            "type": "boolean",
+            "default": true
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "url": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "url"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autocomplete": {
+            "$ref": "#/$defs/field-properties/@autocomplete"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon",
+            "default": "url"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "maxlength": {
+            "$ref": "#/$defs/field-properties/@maxlength"
+          },
+          "minlength": {
+            "$ref": "#/$defs/field-properties/@minlength"
+          },
+          "pattern": {
+            "$ref": "#/$defs/field-properties/@pattern"
+          },
+          "placeholder": {
+            "$ref": "#/$defs/field-properties/@placeholder"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width"
+          }
+        }
+      },
+      "users": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "users"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "empty": {
+            "$ref": "#/$defs/field-properties/@empty"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "image": {
+            "$ref": "#/$defs/field-properties/@image"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "layout": {
+            "$ref": "#/$defs/field-properties/@layout"
+          },
+          "link": {
+            "$ref": "#/$defs/field-properties/@link"
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "multiple": {
+            "$ref": "#/$defs/field-properties/@multiple",
+            "default": true
+          },
+          "query": {
+            "$ref": "#/$defs/field-properties/@query"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required"
+          },
+          "search": {
+            "$ref": "#/$defs/field-properties/@search",
+            "default": true
+          },
+          "size": {
+            "$ref": "#/$defs/field-properties/@size",
+            "default": "auto"
+          },
+          "text": {
+            "$ref": "#/$defs/field-properties/@text"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width",
+            "default": "1/1"
+          }
+        }
+      },
+      "writer": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "writer"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "field"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "after": {
+            "$ref": "#/$defs/field-properties/@after"
+          },
+          "autofocus": {
+            "$ref": "#/$defs/field-properties/@autofocus"
+          },
+          "before": {
+            "$ref": "#/$defs/field-properties/@before"
+          },
+          "default": {
+            "$ref": "#/$defs/field-properties/@default"
+          },
+          "disabled": {
+            "$ref": "#/$defs/field-properties/@disabled"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "icon": {
+            "$ref": "#/$defs/field-properties/@icon"
+          },
+          "inline": {
+            "type": "boolean",
+            "default": false
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "marks": {
+            "$ref": "#/$defs/field-properties/@marks"
+          },
+          "nodes": {
+            "$ref": "#/$defs/field-properties/@nodes"
+          },
+          "placeholder": {
+            "$ref": "#/$defs/field-properties/@placeholder"
+          },
+          "required": {
+            "$ref": "#/$defs/field-properties/@required"
+          },
+          "translate": {
+            "$ref": "#/$defs/field-properties/@translate",
+            "default": true
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width"
+          }
+        }
+      }
+    },
+    "sections": {
+      "fields": {
+        "type": "object",
+        "required": [
+          "type",
+          "fields"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "fields"
+            ]
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          }
+        }
+      },
+      "files": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "files"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "section"
+            ]
+          },
+          "empty": {
+            "$ref": "#/$defs/field-properties/@empty"
+          },
+          "flip": {
+            "$ref": "#/$defs/field-properties/@flip",
+            "default": false
+          },
+          "headline": {
+            "$ref": "#/$defs/field-properties/@headline"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "image": {
+            "$ref": "#/$defs/field-properties/@image"
+          },
+          "info": {
+            "$ref": "#/$defs/field-properties/@info"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "layout": {
+            "$ref": "#/$defs/field-properties/@layout",
+            "default": "list"
+          },
+          "limit": {
+            "$ref": "#/$defs/field-properties/@limit",
+            "default": 20
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "page": {
+            "$ref": "#/$defs/field-properties/@page"
+          },
+          "parent": {
+            "$ref": "#/$defs/field-properties/@parent"
+          },
+          "size": {
+            "$ref": "#/$defs/field-properties/@size",
+            "default": "auto"
+          },
+          "search": {
+            "$ref": "#/$defs/field-properties/@search"
+          },
+          "sortBy": {
+            "$ref": "#/$defs/field-properties/@sortBy"
+          },
+          "sortable": {
+            "$ref": "#/$defs/field-properties/@sortable",
+            "default": true
+          },
+          "status": {
+            "$ref": "#/$defs/field-properties/@status"
+          },
+          "template": {
+            "$ref": "#/$defs/field-properties/@template"
+          },
+          "text": {
+            "$ref": "#/$defs/nonEmptyString",
+            "default": "'{{ page.title }}'"
+          }
+        }
+      },
+      "info": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "info"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "section"
+            ]
+          },
+          "headline": {
+            "$ref": "#/$defs/field-properties/@headline"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "text": {
+            "$ref": "#/$defs/field-properties/@text"
+          },
+          "theme": {
+            "$ref": "#/$defs/field-properties/@theme",
+            "default": "info"
+          }
+        }
+      },
+      "pages": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "pages"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "section"
+            ]
+          },
+          "create": {
+            "$ref": "#/$defs/field-properties/@create"
+          },
+          "columns": {
+            "$ref": "#/$defs/field-properties/@columns"
+          },
+          "empty": {
+            "$ref": "#/$defs/field-properties/@empty"
+          },
+          "flip": {
+            "$ref": "#/$defs/field-properties/@flip",
+            "default": false
+          },
+          "headline": {
+            "$ref": "#/$defs/field-properties/@headline"
+          },
+          "help": {
+            "$ref": "#/$defs/field-properties/@help"
+          },
+          "image": {
+            "$ref": "#/$defs/field-properties/@image"
+          },
+          "info": {
+            "$ref": "#/$defs/field-properties/@info"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "layout": {
+            "$ref": "#/$defs/field-properties/@layout",
+            "default": "list"
+          },
+          "limit": {
+            "$ref": "#/$defs/field-properties/@limit",
+            "default": 20
+          },
+          "max": {
+            "$ref": "#/$defs/field-properties/@max"
+          },
+          "min": {
+            "$ref": "#/$defs/field-properties/@min"
+          },
+          "page": {
+            "$ref": "#/$defs/field-properties/@page"
+          },
+          "parent": {
+            "$ref": "#/$defs/field-properties/@parent"
+          },
+          "search": {
+            "$ref": "#/$defs/field-properties/@search"
+          },
+          "size": {
+            "$ref": "#/$defs/field-properties/@size",
+            "default": "auto"
+          },
+          "sortBy": {
+            "$ref": "#/$defs/field-properties/@sortBy"
+          },
+          "sortable": {
+            "$ref": "#/$defs/field-properties/@sortable",
+            "default": true
+          },
+          "status": {
+            "$ref": "#/$defs/field-properties/@status"
+          },
+          "template": {
+            "$ref": "#/$defs/field-properties/@template"
+          },
+          "templates": {
+            "$ref": "#/$defs/field-properties/@templates"
+          },
+          "text": {
+            "$ref": "#/$defs/nonEmptyString",
+            "default": "'{{ page.title }}'"
+          }
+        }
+      },
+      "stats": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "stats"
+            ]
+          },
+          "blueprint": {
+            "enum": [
+              "section"
+            ]
+          },
+          "headline": {
+            "$ref": "#/$defs/field-properties/@headline"
+          },
+          "label": {
+            "$ref": "#/$defs/field-properties/@label"
+          },
+          "reports": {
+            "$ref": "#/$defs/blueprint-properties/@reports"
+          },
+          "size": {
+            "$ref": "#/$defs/field-properties/@size",
+            "default": "large"
+          }
+        }
+      }
+    },
+    "wrappers": {
+      "fields": {
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/nonEmptyString",
+                "description": "shorthand version of extends property"
+              },
+              {
+                "$ref": "#/$defs/fields/blocks"
+              },
+              {
+                "$ref": "#/$defs/fields/checkboxes"
+              },
+              {
+                "$ref": "#/$defs/fields/date"
+              },
+              {
+                "$ref": "#/$defs/fields/email"
+              },
+              {
+                "$ref": "#/$defs/fields/files"
+              },
+              {
+                "$ref": "#/$defs/fields/gap"
+              },
+              {
+                "$ref": "#/$defs/fields/headline"
+              },
+              {
+                "$ref": "#/$defs/fields/hidden"
+              },
+              {
+                "$ref": "#/$defs/fields/info"
+              },
+              {
+                "$ref": "#/$defs/fields/layout"
+              },
+              {
+                "$ref": "#/$defs/fields/line"
+              },
+              {
+                "$ref": "#/$defs/fields/list"
+              },
+              {
+                "$ref": "#/$defs/fields/multiselect"
+              },
+              {
+                "$ref": "#/$defs/fields/number"
+              },
+              {
+                "$ref": "#/$defs/fields/object"
+              },
+              {
+                "$ref": "#/$defs/fields/pages"
+              },
+              {
+                "$ref": "#/$defs/fields/radio"
+              },
+              {
+                "$ref": "#/$defs/fields/range"
+              },
+              {
+                "$ref": "#/$defs/fields/select"
+              },
+              {
+                "$ref": "#/$defs/fields/slug"
+              },
+              {
+                "$ref": "#/$defs/fields/structure"
+              },
+              {
+                "$ref": "#/$defs/fields/tags"
+              },
+              {
+                "$ref": "#/$defs/fields/tel"
+              },
+              {
+                "$ref": "#/$defs/fields/text"
+              },
+              {
+                "$ref": "#/$defs/fields/textarea"
+              },
+              {
+                "$ref": "#/$defs/fields/time"
+              },
+              {
+                "$ref": "#/$defs/fields/toggle"
+              },
+              {
+                "$ref": "#/$defs/fields/toggles"
+              },
+              {
+                "$ref": "#/$defs/fields/url"
+              },
+              {
+                "$ref": "#/$defs/fields/users"
+              },
+              {
+                "$ref": "#/$defs/fields/writer"
+              }
+            ]
+          }
+        }
+      },
+      "sections": {
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/nonEmptyString",
+                "description": "shorthand version of extends property"
+              },
+              {
+                "$ref": "#/$defs/sections/info"
+              },
+              {
+                "$ref": "#/$defs/sections/fields"
+              },
+              {
+                "$ref": "#/$defs/sections/files"
+              },
+              {
+                "$ref": "#/$defs/sections/pages"
+              }
+            ]
+          }
+        }
+      },
+      "columns": {
+        "oneOf": [
+          {
+            "type": "object",
+            "patternProperties": {
+              ".*": {
+                "$ref": "#/$defs/column"
+              }
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/column"
+            }
+          }
+        ]
+      },
+      "tabs": {
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "$ref": "#/$defs/tab"
+          }
+        }
+      }
+    }
+  }
+}
