@@ -687,6 +687,21 @@
               }
             ]
           },
+          "create": {
+            "type": "object",
+            "properties": {
+              "width": {
+                "$ref": "#/$defs/numberInPixel"
+              },
+              "height": {
+                "$ref": "#/$defs/numberInPixel"
+              },
+              "crop": {
+                  "type": "boolean",
+                  "default": false
+              }
+            }
+          },
           "image": {
             "$ref": "#/$defs/blueprint-properties/@image"
           },
