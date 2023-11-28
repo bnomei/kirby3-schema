@@ -690,6 +690,10 @@
           "image": {
             "$ref": "#/$defs/blueprint-properties/@image"
           },
+          "focus": {
+            "type": "boolean",
+            "default": true
+          },
           "options": {
             "$ref": "#/$defs/blueprint-properties/@options"
           },
