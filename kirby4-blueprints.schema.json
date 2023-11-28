@@ -152,7 +152,10 @@
         "strike",
         "code",
         "link",
-        "email"
+        "email",
+        "sub",
+        "sup",
+        "clear"
       ]
     },
     "nodes": {
@@ -3755,6 +3758,9 @@
           "parent": {
             "$ref": "#/$defs/field-properties/@parent"
           },
+          "query": {
+            "$ref": "#/$defs/field-properties/@query"
+          },
           "search": {
             "$ref": "#/$defs/field-properties/@search"
           },
@@ -3776,6 +3782,9 @@
             "$ref": "#/$defs/field-properties/@template"
           },
           "templates": {
+            "$ref": "#/$defs/field-properties/@templates"
+          },
+          "templatesIgnore": {
             "$ref": "#/$defs/field-properties/@templates"
           },
           "text": {
