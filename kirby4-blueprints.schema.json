@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://getkirby.com/schema/blueprints.schema.json",
-  "title": "JSON schema for Kirby 3 CMS blueprint files",
+  "title": "JSON schema for Kirby 4 CMS blueprint files",
   "oneOf": [
     {
       "$ref": "#/$defs/fields/blocks"
