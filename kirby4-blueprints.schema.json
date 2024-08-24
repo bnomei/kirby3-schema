@@ -1989,6 +1989,31 @@
           }
         }
       },
+      "group": {
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "gap"
+            ]
+          },
+          "extends": {
+            "$ref": "#/$defs/field-properties/@extends"
+          },
+          "fields": {
+            "$ref": "#/$defs/wrappers/fields"
+          },
+          "when": {
+            "$ref": "#/$defs/field-properties/@when"
+          },
+          "width": {
+            "$ref": "#/$defs/field-properties/@width"
+          }
+        }
+      },
       "headline": {
         "required": [
           "type"
