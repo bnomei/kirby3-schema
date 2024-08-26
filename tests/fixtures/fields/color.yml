@@ -1,0 +1,5 @@
+type: color
+options:
+  type: query
+  alpha: true
+  mode: picker

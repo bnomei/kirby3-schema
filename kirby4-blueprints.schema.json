@@ -10,6 +10,9 @@
       "$ref": "#/$defs/fields/checkboxes"
     },
     {
+      "$ref": "#/$defs/fields/color"
+    },
+    {
       "$ref": "#/$defs/fields/date"
     },
     {
@@ -1669,7 +1672,8 @@
           "mode": {
             "enum": [
               "picker",
-              "input"
+              "input",
+              "options"
             ],
             "default": "picker"
           },
@@ -3961,6 +3965,9 @@
               },
               {
                 "$ref": "#/$defs/fields/checkboxes"
+              },
+              {
+                "$ref": "#/$defs/fields/color"
               },
               {
                 "$ref": "#/$defs/fields/date"

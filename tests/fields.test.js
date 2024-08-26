@@ -8,6 +8,10 @@ test('checkboxes', () => {
     expect(validate('./tests/fixtures/fields/checkboxes.yml')).toBeTruthy();
 });
 
+test('color', () => {
+    expect(validate('./tests/fixtures/fields/color.yml')).toBeTruthy();
+});
+
 test('date', () => {
     expect(validate('./tests/fixtures/fields/date.yml')).toBeTruthy();
 });
