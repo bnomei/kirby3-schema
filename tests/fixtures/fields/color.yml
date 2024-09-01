@@ -1,5 +1,8 @@
 type: color
+mode: options
+alpha: true
 options:
-  type: query
-  alpha: true
-  mode: picker
+  - '#fff'
+  - '#ccc'
+  - '#666'
+  - '#000'

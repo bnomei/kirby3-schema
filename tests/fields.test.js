@@ -48,6 +48,10 @@ test('line', () => {
     expect(validate('./tests/fixtures/fields/line.yml')).toBeTruthy();
 });
 
+test('link', () => {
+    expect(validate('./tests/fixtures/fields/link.yml')).toBeTruthy();
+});
+
 test('list', () => {
     expect(validate('./tests/fixtures/fields/list.yml')).toBeTruthy();
 });
