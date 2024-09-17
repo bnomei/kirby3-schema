@@ -50,6 +50,11 @@ Clone this repo to your local machine. Open the IDE settings and search for `JSO
 
 For testing I mapped it to my `site/blueprints` folder.
 
+
+#### Sublime Text
+
+You can use the schema in Sublime Text by cloning this repo to your local machine and setting a custom JSON schema location using [this Sublime Text extension](https://github.com/sublimelsp/LSP-json?tab=readme-ov-file#custom-schemas) and wildcards in `fileMatch`.
+
 ### Blueprint detection
 
 Since Kirby reuses some types like `file`, `info`, `pages` in fields and sections the schema can not always determine which blueprint you are working on with absolute certainty. For now, I introduced a `blueprint` property to solve this. Use it in your `file`, `page`, `user` and `site` blueprints.  
