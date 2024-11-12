@@ -209,6 +209,12 @@
         },
         "value": {
           "$ref": "#/$defs/nonEmptyString"
+        },
+        "icon": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "info": {
+          "$ref": "#/$defs/nonEmptyString"
         }
       }
     },
