@@ -24,7 +24,7 @@ JSON Schema file for Kirby blueprints
 
 ### Schemastore (not yet)
 
-Ideally the schema of this repo would be available from the [Schemastore](https://www.schemastore.org/json/) and it would be almost zero configuration in most IDEs. But that is something the Kirby 3 CMS team should do eventually, not me.
+Ideally the schema of this repo would be available from the [Schemastore](https://www.schemastore.org/json/) and it would be almost zero configuration in most IDEs. But that is something the Kirby CMS team should do eventually, not me.
 
 ### Manual IDE configuration
 
