@@ -3,7 +3,7 @@ const ajv = new Ajv2020({
     strictTypes: false,
     allowMatchingProperties: true,
 })
-const schema = ajv.compile(require('./../kirby4-blueprints.schema.json'))
+const schema = ajv.compile(require('./../kirby5-blueprints.schema.json'))
 const fs = require('fs');
 const yaml = require('js-yaml')
 

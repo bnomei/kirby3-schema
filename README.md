@@ -1,10 +1,10 @@
-# Kirby 3 and 4 Schema
+# Kirby JSON Schema
 
 ![Release](https://flat.badgen.net/github/release/bnomei/kirby3-schema?color=ae81ff)
 ![Checks](https://flat.badgen.net//github/checks/bnomei/kirby3-schema)
 [![Discord](https://flat.badgen.net/badge/discord/bnomei?color=7289da)](https://discordapp.com/users/bnomei)
 
-JSON Schema file for Kirby 3 and 4 blueprints
+JSON Schema file for Kirby blueprints
 
 ## Commercial Usage
 
