@@ -4,7 +4,7 @@
 [![Kirby 4](https://flat.badgen.net/badge/Kirby/4?color=ECC748)](https://getkirby.com)
 [![Kirby 5](https://flat.badgen.net/badge/Kirby/5?color=ECC748)](https://getkirby.com)
 ![Release](https://flat.badgen.net/github/release/bnomei/kirby3-schema?color=ae81ff&icon=github&label)
-![Checks](https://flat.badgen.net//github/checks/bnomei/kirby3-schema&icon=github&label)
+![Checks](https://flat.badgen.net/github/checks/bnomei/kirby3-schema)
 [![Discord](https://flat.badgen.net/badge/discord/bnomei?color=7289da&icon=discord&label)](https://discordapp.com/users/bnomei)
 [![Buymecoffee](https://flat.badgen.net/badge/icon/donate?icon=buymeacoffee&color=FF813F&label)](https://www.buymeacoffee.com/bnomei)
 
