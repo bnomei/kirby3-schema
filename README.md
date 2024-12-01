@@ -1,36 +1,29 @@
 # Kirby JSON Schema
 
+[![Kirby 3](https://flat.badgen.net/badge/Kirby/3?color=ECC748)](https://getkirby.com)
+[![Kirby 4](https://flat.badgen.net/badge/Kirby/4?color=ECC748)](https://getkirby.com)
+[![Kirby 5](https://flat.badgen.net/badge/Kirby/5?color=ECC748)](https://getkirby.com)
 ![Release](https://flat.badgen.net/github/release/bnomei/kirby3-schema?color=ae81ff)
 ![Checks](https://flat.badgen.net//github/checks/bnomei/kirby3-schema)
 [![Discord](https://flat.badgen.net/badge/discord/bnomei?color=7289da)](https://discordapp.com/users/bnomei)
 
 JSON Schema file for Kirby blueprints
 
-## Commercial Usage
-
-> <br>
-> <b>Support open source!</b><br><br>
-> This schema file is free but if you use it in a commercial project please consider to sponsor me or make a donation.<br>
-> If my work helped you to make some cash it seems fair to me that I might get a little reward as well, right?<br><br>
-> Be kind. Share a little. Thanks.<br><br>
-> &dash; Bruno<br>
-> &nbsp;
-
-| M | O | N | E | Y |
-|---|----|---|---|---|
-| [Github sponsor](https://github.com/sponsors/bnomei) | [Patreon](https://patreon.com/bnomei) | [Buy Me a Coffee](https://buymeacoff.ee/bnomei) | [Paypal dontation](https://www.paypal.me/bnomei/15) | [Hire me](mailto:b@bnomei.com?subject=Kirby) |
-
 ## Install
 
 ### Schemastore (not yet)
 
-Ideally the schema of this repo would be available from the [Schemastore](https://www.schemastore.org/json/) and it would be almost zero configuration in most IDEs. But that is something the Kirby CMS team should do eventually, not me.
+Ideally, this repo's schema would be available from the [Schemastore](https://www.schemastore.org/json/), and there would be almost zero configuration in most IDEs. But that is something the Kirby CMS team should eventually do, not me.
 
-### Manual IDE configuration
+### Download the Schema
 
-#### VSCode
+You can clone the entire repo or download the file `kirbyX-blueprints.schema.json`, where `X` matches your intended Kirby version. Put that file inside your project or in a global space of your dev setup. Then configure your IDE to use that file to get Schema information for Kirby's blueprints.
 
-You will need the [Red Hat VS Code YAML Extension](https://github.com/redhat-developer/vscode-yaml) and then you can use the `yaml.schemas` setting to add your schema like this:
+## Configure your IDE
+
+### VSCode
+
+You will need the [Red Hat VS Code YAML Extension](https://github.com/redhat-developer/vscode-yaml), and then you can use the `yaml.schemas` setting to add your schema like this:
 
 ```yaml
   "yaml.schemas": {
@@ -42,20 +35,20 @@ This will automatically use the schema for all blueprint files.
 
 The extension prepends `/` on the path so its `/~/YOUR_FOLDER/kirby3-schema/kirby4-blueprints.schema.json`.
 
+> [!NOTE]
 > thanks @tobimori and @iskrisis
 
-#### PHP Storm
+### PHPStorm
 
-Clone this repo to your local machine. Open the IDE settings and search for `JSON Schema`. Then select `Languages & Frameworks` » `Schemas and DTDs` » `JSON Schema Mappings`. Click the `+` button at the top to add a new JSON validate configuration. Then fill in the corresponding name, file or URL, and version.
+Clone this repo to your local machine. Open the IDE settings and search for `JSON Schema`. Then select `Languages & Frameworks` » `Schemas and DTDs` » `JSON Schema Mappings`. Click the `+` button at the top to add a new JSON validate configuration. Then, fill in the corresponding name, file or URL, and version.
 
-For testing I mapped it to my `site/blueprints` folder.
+For testing, I mapped it to my `site/blueprints` folder.
 
-
-#### Sublime Text
+### Sublime Text
 
 You can use the schema in Sublime Text by cloning this repo to your local machine and setting a custom JSON schema location using [this Sublime Text extension]([https://github.com/sublimelsp/LSP-json?tab=readme-ov-file#custom-schemas](https://github.com/sublimelsp/LSP-yaml) and wildcards in `fileMatch` [schema settings](https://github.com/sublimelsp/LSP-yaml/blob/7b928a7b84f25381b01fa98c04ca7b1418b3a465/LSP-yaml.sublime-settings#L37) ([more](https://github.com/sublimelsp/LSP-json?tab=readme-ov-file#custom-schemas)].
 
-### Blueprint detection
+## Blueprint detection
 
 Since Kirby reuses some types like `file`, `info`, `pages` in fields and sections the schema can not always determine which blueprint you are working on with absolute certainty. For now, I introduced a `blueprint` property to solve this. Use it in your `file`, `page`, `user` and `site` blueprints.  
 
