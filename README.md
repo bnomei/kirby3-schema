@@ -47,7 +47,7 @@ For testing, I mapped it to my `site/blueprints` folder.
 
 ### Sublime Text
 
-You can use the schema in Sublime Text by cloning this repo to your local machine and setting a custom JSON schema location using [this Sublime Text extension](https://github.com/sublimelsp/LSP-json?tab=readme-ov-file#custom-schemas](https://github.com/sublimelsp/LSP-yaml) and wildcards in `fileMatch` [schema settings](https://github.com/sublimelsp/LSP-yaml/blob/7b928a7b84f25381b01fa98c04ca7b1418b3a465/LSP-yaml.sublime-settings#L37) ([more](https://github.com/sublimelsp/LSP-json?tab=readme-ov-file#custom-schemas)].
+You can use the schema in Sublime Text by cloning this repo to your local machine and setting a custom JSON schema location using [this Sublime Text extension](https://github.com/sublimelsp/LSP-json?tab=readme-ov-file#custom-schemas]) and wildcards in `fileMatch` [schema settings](https://github.com/sublimelsp/LSP-yaml/blob/7b928a7b84f25381b01fa98c04ca7b1418b3a465/LSP-yaml.sublime-settings#L37) ([more](https://github.com/sublimelsp/LSP-json?tab=readme-ov-file#custom-schemas)].
 
 ## Blueprint detection
 
