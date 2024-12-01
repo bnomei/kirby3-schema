@@ -3,9 +3,12 @@
 [![Kirby 3](https://flat.badgen.net/badge/Kirby/3?color=ECC748)](https://getkirby.com)
 [![Kirby 4](https://flat.badgen.net/badge/Kirby/4?color=ECC748)](https://getkirby.com)
 [![Kirby 5](https://flat.badgen.net/badge/Kirby/5?color=ECC748)](https://getkirby.com)
-![Release](https://flat.badgen.net/github/release/bnomei/kirby3-schema?color=ae81ff)
+![Release](https://flat.badgen.net/packagist/v/bnomei/kirby3-schema?color=ae81ff&icon=github&label)
+![Downloads](https://flat.badgen.net/packagist/dt/bnomei/kirby3-schema?color=272822&icon=github&label)
 ![Checks](https://flat.badgen.net//github/checks/bnomei/kirby3-schema)
-[![Discord](https://flat.badgen.net/badge/discord/bnomei?color=7289da)](https://discordapp.com/users/bnomei)
+[![Discord](https://flat.badgen.net/badge/discord/bnomei?color=7289da&icon=discord&label)](https://discordapp.com/users/bnomei)
+[![Buymecoffee](https://flat.badgen.net/badge/icon/donate?icon=buymeacoffee&color=FF813F&label)](https://www.buymeacoffee.com/bnomei)
+
 
 JSON Schema file for Kirby blueprints
 
