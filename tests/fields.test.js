@@ -20,6 +20,10 @@ test('email', () => {
     expect(validate('./tests/fixtures/fields/email.yml')).toBeTruthy();
 });
 
+test('entries', () => {
+    expect(validate('./tests/fixtures/fields/entries.yml')).toBeTruthy();
+});
+
 test('files', () => {
     expect(validate('./tests/fixtures/fields/files.yml')).toBeTruthy();
 });
