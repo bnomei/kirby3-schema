@@ -899,6 +899,9 @@
       "@autofocus": {
         "type": "boolean"
       },
+      "@batch": {
+        "type": "boolean"
+      },
       "@before": {
         "$ref": "#/$defs/nonEmptyString"
       },
@@ -3907,6 +3910,9 @@
               "section"
             ]
           },
+          "batch": {
+            "$ref": "#/$defs/field-properties/@batch"
+          },
           "empty": {
             "$ref": "#/$defs/field-properties/@empty"
           },
@@ -4026,6 +4032,9 @@
             "enum": [
               "section"
             ]
+          },
+          "batch": {
+            "$ref": "#/$defs/field-properties/@batch"
           },
           "create": {
             "$ref": "#/$defs/field-properties/@create"
